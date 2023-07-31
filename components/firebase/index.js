@@ -20,14 +20,13 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDN8rz3IiGnd2SHMKT0i0RT1FyWBjmss8w",
-  authDomain: "telephone-directory-b104a.firebaseapp.com",
-  databaseURL: "https://telephone-directory-b104a-default-rtdb.firebaseio.com",
-  projectId: "telephone-directory-b104a",
-  storageBucket: "telephone-directory-b104a.appspot.com",
-  messagingSenderId: "826839994254",
-  appId: "1:826839994254:web:aa42aeec04578835ed9edf",
-  measurementId: "G-TBV5JGKFVS"
+  apiKey: "AIzaSyBORD_DhQZ8BEewKXAS2Mlj_tznX3E3OHw",
+  authDomain: "property-2771f.firebaseapp.com",
+  projectId: "property-2771f",
+  storageBucket: "property-2771f.appspot.com",
+  messagingSenderId: "246621985864",
+  appId: "1:246621985864:web:68b00e008510423ebd8c7d",
+  measurementId: "G-ZTC009KJ6M"
 };
 
 const app = initializeApp(firebaseConfig);

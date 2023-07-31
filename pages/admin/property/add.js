@@ -6,12 +6,16 @@ import PrivateRoute from "../../../PrivateRoute/PrivateRoute";
 const AddContact = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    title:'', 
-    phoneNumber:'', 
-    ask_price:'', 
-    type:'', 
-    link:'',
-    requirement:""
+    ProjectName:'',
+    Sector:'',
+    ProjectPhotos:'',
+    ProjectBrochure:'',
+    PriceStartsfrom:'',
+    PricePerSQFT:'',
+    AboutProject:'',
+    Nooffloors:'',
+    BasicAmenities:'',
+    AvailableFrom:'',
   });
 
   const onChangeHandler = (event) => {
@@ -48,29 +52,30 @@ const AddContact = () => {
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="mt-8 space-y-4">
                   <div className="mb-4">
-                    <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
-                    <input type="text" id="name" name='title' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Title" required />
+                    <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Project Name</label>
+                    <input type="text" id="name" name='ProjectName' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Project Name" required />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">Phone</label>
-                    <input type="text" id="number" name="phoneNumber" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Phone" required />
+                    <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Sector</label>
+                    <input type="text" id="name" name='Sector' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Sector" required />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="ask_price" className="block mb-2 text-sm font-medium text-gray-900 ">Ask Price</label>
-                    <input type="text" id="number" name='ask_price' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Ask Price" required />
+                    <label htmlfor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">Price Start from</label>
+                    <input type="text" id="number" name="PriceStartsfrom" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Price Start from" required />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Link</label>
-                    <input type="link" id="ask_price"  name='link' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Link" required />
+                    <label htmlfor="Nooffloors" className="block mb-2 text-sm font-medium text-gray-900 ">No Of Floors</label>
+                    <input type="text" id="number" name='Nooffloors' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="No Of Floors" required />
                   </div>
                   <div className="mb-4 flex gap-5">
+                    <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Price Per SQFT?</label>
                     <div className="flex gap-1">
-                        <input type="radio" id="name" name='type' value="residential" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
-                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Residential</label>
+                        <input type="radio" id="name" name='PricePerSQFT' value="yes" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Yes</label>
                     </div>
                     <div className="flex gap-1">
-                        <input type="radio" id="name" name='type' value="commercial" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
-                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">commercial</label>
+                        <input type="radio" id="name" name='PricePerSQFT' value="no" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">No</label>
                     </div>
                   </div>
                   <div className="mb-4 flex gap-5">

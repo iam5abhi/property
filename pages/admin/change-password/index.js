@@ -4,6 +4,11 @@ import PrivateRoute from '../../../PrivateRoute/PrivateRoute'
 
 const Index = () => {
     const [password, setPassword] = useState()
+
+    const ChangePassword = (event) =>{
+        event.preventDefault()
+        UpdatePassword(password)
+    }
     return (
         <>
             <div className="max-w-screen mx-auto">
@@ -19,7 +24,7 @@ const Index = () => {
                                         <input type="text" id="name" onChange={(e) => setPassword(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="New Password" required />
                                     </div>
                                     <div className="text-center mb-6">
-                                        <button type='submit' onClick={() => UpdatePassword(password)} className="rounded-full  flex w-[30%] mx-auto justify-center 
+                                        <button type='submit' onClick={ChangePassword} className="rounded-full  flex w-[30%] mx-auto justify-center 
                                             rounded-full  bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md py-2 px-4 text-lg 
                                             font-medium text-white ">Submit</button>
                                     </div>

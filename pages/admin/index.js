@@ -92,7 +92,7 @@ const Index = () => {
                                          {index+1}. 
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                        {data.title}  
+                                        {data.name}  
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                     {data.type}
@@ -115,11 +115,7 @@ const Index = () => {
                                             <span aria-hidden className="absolute inset-0 bg-yellow-200 opacity-50 rounded-full" />
                                             <span className="relative">Update</span>
                                         </span>
-                                        <span onClick={()=>statsContacts(data,data.status=='active'?'deactive':'active')} className={`relative inline-block px-3 py-1 font-semibold ${data.status=='active'?'text-green-800':'text-red-800'} leading-tight`}>
-                                            <span aria-hidden className={`absolute inset-0 ${data.status=='active'?'bg-green-200':'bg-red-200'} opacity-50 rounded-full`} />
-                                            <span className="relative">{data.status}</span>
-                                        </span>
-                                        <span onClick={()=>deleteContacts(data.id)} className={`ml-3 relative inline-block px-3 py-1 font-semibold text-red-800 leading-tight`}>
+                                        <span onClick={()=>deleteContacts(data.id)} className={`relative inline-block px-3 py-1 font-semibold text-red-800 leading-tight`}>
                                             <span aria-hidden className={`absolute inset-0 bg-red-200 opacity-50 rounded-full`} />
                                             <span className="relative">Delete</span>
                                         </span>

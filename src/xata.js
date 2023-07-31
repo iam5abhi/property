@@ -4,13 +4,8 @@ import { buildClient } from "@xata.io/client";
 /** @type { SchemaTables } */
 const tables = [
   {
-    name: "contacts",
+    name: "property",
     columns: [
-      { name: "firstName", type: "string" },
-      { name: "lastName", type: "string" },
-      { name: "phoneNumber", type: "string" },
-      { name: "location", type: "string" },
-      { name: "email", type: "string" },
       { name: "imageUrl", type: "string" },
     ],
   },
@@ -19,8 +14,8 @@ const tables = [
 /** @type { import('@xata.io/client').ClientConstructor<{}> } */
 const DatabaseClient = buildClient();
 const defaultOptions = {
-  databaseURL:"https://sandeep-kumar-s-workspace-b4csci.us-east-1.xata.sh/db/telephone-directory",
-  apiKey: "xau_THFyITTTEDuI5yK8d0dAu1C5x1Aue3Oh1", // Replace with your actual API key
+  databaseURL:"https://sandeep-kumar-s-workspace-b4csci.us-east-1.xata.sh/db/property",
+  apiKey: "xau_02fxzu0NPU4WHS6kJ3y5cPgvJykufees2", // Replace with your actual API key
 };
 /** @typedef { import('./types').DatabaseSchema } DatabaseSchema */
 /** @extends DatabaseClient<DatabaseSchema> */

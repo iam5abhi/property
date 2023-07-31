@@ -1,73 +1,48 @@
-import Head from "next/head";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import Carousel from "../components/carousel/Carousel";
+import { useRouter } from 'next/router';
 
-export default function Index() {
-  const [category, setCategory] = useState([])
+const index = () => {
+    const router = useRouter()
 
-  const getCategotyData = () => {
-    fetch("/api/get-category", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => { return res.json() }
-    ).then((res) => setCategory(res))
-  }
-  useEffect(() => {
-    getCategotyData()
-  }, [])
-  return (
-    <>
-    <div>
-      <Head>
-        <title>Contacts Phone Directory</title>
-        <meta name='description' content='Job board app' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <div className="max-w-screen mx-auto ">
-        <div className="container mx-auto py-5">
-          <Carousel />
-          <div className="p-4 ">
-            <div className=" rounded   mb-4 ">
-              <div className="grid gap-6 mb-6 grid-cols-1 md:grid-cols-3">
-              {category.length==0 ? null :<>
-                 <Link href={`/properties`} ><div><div className="grid2">
-                      <div className="max-w-sm rounded-full bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md">
-                        <div className="p-5">
-                            <h5 className="text-center  text-white text-xl md:text-3xl font-semibold tracking-tight uppercase">properties</h5>
+    return (
+        <>
+                <div className="max-w-screen mx-auto">
+                    <div className="container mx-auto py-6">
+                        <div className="px-4">
+                        <h2 className='text-2xl font-bold text-center py-8 md:text-4xl md:py-16'>Do you want to:  </h2>
+                            <div className="rounded mb-4 ml-0 md:ml-[200px]">
+                          
+                                <div className="grid gap-2 md:gap-0  grid-cols-2 md:grid-cols-2">
+                                    <div className="grid1">
+                                        <div className="max-w-sm rounded-full bg-[#F8AF0B] shadow-md">
+                                            <div className="md:p-5 p-3">
+                                                <a href="#">
+                                                    <h5 onClick={() => router.push('/properties/buy')} className="text-center text-white text-xl md:text-3xl font-semibold tracking-tight uppercase">Buy</h5>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="grid2">
+                                            <div className="max-w-sm rounded-full bg-[#4216aa] shadow-md">
+                                                {/* <a href="#">
+                            <img class="rounded-t-lg" src="assets/img/1942.jpg" alt="">
+                        </a> */}
+                                                <div className="md:p-5 p-3">
+                                                    <a href="#">
+                                                        <h5 onClick={() => router.push('/properties/lease')} className="text-center text-white text-xl md:text-3xl font-semibold tracking-tight uppercase">Lease</h5>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div />
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div></div>
-                  </Link>
-                 {category.map((data) => {
-                  return <>
-                  <Link key={data.id} href={`/contacts/${data.id}`} ><div><div className="grid2">
-                  <div className="max-w-sm rounded-full bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md">
-                    <div className="p-5">
-                      <a href="#">
-                        <h5 className="text-center text-white text-xl md:text-3xl font-semibold tracking-tight uppercase">{data.category}</h5>
-                      </a>
                     </div>
-                  </div>
-                </div></div></Link>
-                </>
-                })}
-                </>
-                }
-                <div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-
-      </>
-  );
+        </>
+    )
 }
 
-
+export default index;

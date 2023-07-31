@@ -2,7 +2,7 @@ import { getXataClient } from '../../../src/xata';
 const xata = getXataClient();
 
 const handler = async (req, res) => {
-  const results = await xata.db.property.filter(req.body).getMany();
+  const results = await xata.db.property.getMany();
   res.send(results);
 };
 
