@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-sync-scripts */
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import PrivateRoute from "../../../PrivateRoute/PrivateRoute";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 
 const AddContact = () => {
   const router = useRouter();
+  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }),[]);
   const [aboutProject,setAboutProject]=useState()
   const [basicAmenities,setBasicAmenities]=useState([])
   const [formData, setFormData] = useState({
@@ -176,7 +176,9 @@ const AddContact = () => {
                   <div>
                     <label htmlFor="message" className="block mb-2 text-xl font-medium text-gray-900">Project Description
                     </label>
+                    {!ReactQuill?null:
                     <ReactQuill theme="snow" value={aboutProject} onChange={setAboutProject} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 " placeholder="Write your project description here..."/>      
+                    }
                   </div>
                   <div className='mb-5'>
                       <span className="font-bold">ProjectPhotos &nbsp; &nbsp;&nbsp;</span>
