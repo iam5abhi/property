@@ -28,6 +28,9 @@ const Header = () => {
                                 <Link href="/admin" className="block py-2 pl-3 pr-4 text-violet-950  rounded md:bg-transparent md:p-0 " aria-current="page">Home</Link>
                             </li>
                             <li>
+                                <Link href="/admin/queries" className="block py-2 pl-3 pr-4 text-violet-950  rounded md:bg-transparent md:p-0 " aria-current="page">Queries</Link>
+                            </li> 
+                            <li>
                                 <Link href="/admin/change-password" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-violet-950 md:p-0  ">Change Password</Link>
                             </li> 
                         </ul>
