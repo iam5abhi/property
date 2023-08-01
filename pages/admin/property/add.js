@@ -19,6 +19,8 @@ const AddContact = () => {
     PricePerSQFT:'', //done
     Nooffloors:'', //done
     AvailableFrom:'', //done
+    requirement:'', //done
+    type:'', //done
   });
 
   const BasicAmenitiesHandler =(event)=>{
@@ -98,6 +100,26 @@ const AddContact = () => {
                   <div className="mb-4">
                     <label htmlfor="Nooffloors" className="block mb-2 text-sm font-medium text-gray-900 ">No Of Floors</label>
                     <input type="text" id="number" name='Nooffloors' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="No Of Floors" required />
+                  </div>
+                  <div className="mb-4 flex gap-5">
+                    <div className="flex gap-1">
+                        <input type="radio" id="name" name='type' value="residential" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Residential</label>
+                    </div>
+                    <div className="flex gap-1">
+                        <input type="radio" id="name" name='type' value="commercial" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">commercial</label>
+                    </div>
+                  </div>
+                  <div className="mb-4 flex gap-5">
+                    <div className="flex gap-1">
+                        <input type="radio" id="name" name='requirement' value="buy" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Sell</label>
+                    </div>
+                    <div className="flex gap-1">
+                        <input type="radio" id="name" name='requirement' value="lease" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Lease</label>
+                    </div>
                   </div>
                   <div className="mb-4 flex gap-5">
                     <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Price Per SQFT?</label>
