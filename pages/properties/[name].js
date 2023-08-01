@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import QueryFrom from '../../components/QueryForm/QueryFrom';
 
 const viewPropert = () => {
     const router = useRouter()
@@ -7,8 +8,13 @@ const viewPropert = () => {
     const [contact, setContact] = useState()
     const [checkValue,setCheckValue]=useState({commercial:false,residential:false})
     const [whatsappNumber,setWhatsappNumber]=useState()
+    const [open,setOpen]=useState(false)
+    const [Id,setId]=useState()
     
-
+    const OpenHandler = (id) => {
+        setOpen(true)
+        setId(id)
+    }
     const getCategotyData = () => {
         fetch("/api/property/get-property", {
             method: "POST",
@@ -120,7 +126,7 @@ const viewPropert = () => {
                                                 <div className=" ">
                                                     <div className="col-span-4">
                                                         <h5 className="text-center py-4 text-2xl text-white md:text-3xl font-semibold tracking-tight ">
-                                                        {data.title}
+                                                        {data.ProjectName}
                                                         </h5>
                                                         <div className="grid grid-cols-5 px-2">
                                                             <div className="col-span-2 pt-3 md:pt-5">
@@ -135,9 +141,9 @@ const viewPropert = () => {
                                                                 </a>
                                                             </div>
                                                             <div className="md:pl-16 pl-6 md:pt-0 pt-2">
-                                                                <a href={`https://web.whatsapp.com/send?phone=91${whatsappNumber}&text=ask_price%20:${data.ask_price}%3A%20%2Cname:${data.title}`}>
-                                                                    <img src="/Images/whatsapp.png" className="w-8 md:w-14" />
-                                                                </a>
+                                                                <button type='button' onClick={()=>OpenHandler(data.id)} className="rounded-full bg-[red] text-[white] font-bold px-4 py-2 text-xs md:text-lg shadow-lg" >
+                                                                    Query
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -155,8 +161,8 @@ const viewPropert = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
+            <QueryFrom setOpen={setOpen} open={open} id={Id} />
         </>
     )
 }
