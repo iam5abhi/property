@@ -140,7 +140,7 @@ const viewPropert = () => {
                                                                     <p className="py-4 text-sm md:text-2xl text-white font-medium tracking-tight"> {data.ask_price}</p>
                                                                 </a>
                                                             </div>
-                                                            <div className="md:pl-16 pl-6 md:pt-0 pt-2">
+                                                            <div className="md:pl-16 md:pt-0 pt-2">
                                                                 <button type='button' onClick={()=>OpenHandler(data.id)} className="rounded-full bg-[red] text-[white] font-bold px-4 py-2 text-xs md:text-lg shadow-lg" >
                                                                     Query
                                                                 </button>
