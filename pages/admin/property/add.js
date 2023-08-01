@@ -1,22 +1,48 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import PrivateRoute from "../../../PrivateRoute/PrivateRoute";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const AddContact = () => {
   const router = useRouter();
+  const [aboutProject,setAboutProject]=useState()
+  const [basicAmenities,setBasicAmenities]=useState([])
   const [formData, setFormData] = useState({
     ProjectName:'', //done
     Sector:'', //done
-    ProjectPhotos:'',
-    ProjectBrochure:'', 
+    ProjectPhotos:'', //done
+    ProjectBrochure:'', //done
     PriceStartsfrom:'', //done
     PricePerSQFT:'', //done
-    AboutProject:'',
     Nooffloors:'', //done
-    BasicAmenities:'', //done
     AvailableFrom:'', //done
   });
+
+  const BasicAmenitiesHandler =(event)=>{
+    if (basicAmenities.includes(event.target.value)) {
+      const indexOfAmenity = basicAmenities.indexOf(event.target.value);
+      const updatedAmenities = [...basicAmenities];
+      updatedAmenities.splice(indexOfAmenity, 1);
+      setBasicAmenities(updatedAmenities);
+    } else {
+      setBasicAmenities([...basicAmenities, event.target.value]);
+    }
+  } 
+
+  const openupWidget = (collmnName) => {
+      cloudinary.createUploadWidget(
+        { cloud_name: "fatimaola", upload_preset: "ufa6exrd" },
+        (error, result) => {
+          if (!error && result && result.event === "success") {
+            setFormData({...formData,[collmnName]:result.info.url});
+          }
+        }
+      )
+      .open();
+  };
 
   const onChangeHandler = (event) => {
     setFormData((prevData) => ({
@@ -32,12 +58,18 @@ const AddContact = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
-    }).then(() => router.push("/admin/property"));
+      body: JSON.stringify({...formData,Amenities:basicAmenities,AboutProject:aboutProject}),
+    }).then(() => router.push("/admin")); 
   };
 
   return (
     <>
+      <Head>
+          <script
+          src='https://upload-widget.cloudinary.com/global/all.js'
+          type='text/javascript'
+          />
+      </Head>
       <div className="max-w-screen mx-auto">
         <div className="container mx-auto py-10">
           <div className="p-4">
@@ -78,42 +110,42 @@ const AddContact = () => {
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">No</label>
                     </div>
                   </div>
-                  <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Basic Amenities</label>
+                  <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">BasicAmenities</label>
                   <div className="mb-4 grid grid-cols-3">
                     <div className="flex gap-1">
-                        <input type="checkbox" id="name" name='requirement' value="buy" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="checkbox" id="name" name='requirement' value="Swimming Pool" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Swimming Pool</label>
                     </div>
                     <div className="flex gap-1">
-                        <input type="checkbox" id="name" name='requirement' value="RainWaterHarvesting" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="checkbox" id="name" name='requirement' value="RainWater Harvesting" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Rain Water Harvesting</label>
                     </div>
                     <div className="flex gap-1">
-                        <input type="checkbox" id="name" name='requirement' value="Security" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="checkbox" id="name" name='requirement' value="24x7 Security" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">24x7 Security</label>
                     </div>
                     <div className="flex gap-1">
-                        <input type="checkbox" id="name" name='requirement' value="ClubHouse" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="checkbox" id="name" name='requirement' value="Club House" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Club House</label>
                     </div>
                     <div className="flex gap-1">
-                        <input type="checkbox" id="name" name='requirement' value="WaterSupply" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="checkbox" id="name" name='requirement' value="24/7 Water Supply" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">24/7 Water Supply</label>
                     </div>
                     <div className="flex gap-1">
-                        <input type="checkbox" id="name" name='requirement' value="Lifts" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="checkbox" id="name" name='requirement' value="Lift(s)" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Lift(s)</label>
                     </div> 
                     <div className="flex gap-1">
-                        <input type="checkbox" id="name" name='requirement' value="CarParking" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="checkbox" id="name" name='requirement' value="Car Parking" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Car Parking</label>
                     </div> 
                     <div className="flex gap-1">
-                        <input type="checkbox" id="name" name='requirement' value="Internal Street Lights" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="checkbox" id="name" name='requirement' value="Internal Street Lights" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Internal Street Lights</label>
                     </div> 
                     <div className="flex gap-1">
-                        <input type="checkbox" id="name" name='requirement' value="Fire Fighting Systems" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="checkbox" id="name" name='requirement' value="Fire Fighting Systems" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Fire Fighting Systems</label>
                     </div> 
                   </div> 
@@ -132,14 +164,39 @@ const AddContact = () => {
                       required
                     >
                       <option value="">Choose</option>
-                      <option value="">2024</option>
-                      <option value="">2025</option>
-                      <option value="">2026</option>
-                      <option value="">2027</option>
-                      <option value="">2028</option>
-                      <option value="">2029</option>
-                      <option value="">2030</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                      <option value="2029">2029</option>
+                      <option value="2030">2030</option>
                     </select>
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block mb-2 text-xl font-medium text-gray-900">Project Description
+                    </label>
+                    <ReactQuill theme="snow" value={aboutProject} onChange={setAboutProject} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 " placeholder="Write your project description here..."/>      
+                  </div>
+                  <div className='mb-5'>
+                      <span className="font-bold">ProjectPhotos &nbsp; &nbsp;&nbsp;</span>
+                      <button
+                      className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                      type='button'
+                      onClick={()=>openupWidget("ProjectPhotos")}
+                      >
+                      Upload Image
+                      </button>
+                  </div>
+                  <div className='mb-5'>
+                      <span className="font-bold">ProjectBrochure &nbsp;</span>
+                      <button
+                      className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                      type='button'
+                      onClick={()=>openupWidget("ProjectBrochure")}
+                      >
+                     Pdf Upload
+                      </button>
                   </div>
                   <div className="text-center mb-6">
                     <button

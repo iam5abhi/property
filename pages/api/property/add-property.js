@@ -4,17 +4,10 @@ import { getXataClient } from "../../../src/xata";
 const xata = getXataClient();
 
 const handler = async (req, res) => {
-
-  const { title, phoneNumber, ask_price, type, link, requirement } = req.body;
-  await xata.db.property.create({
-    title, 
-    phoneNumber, 
-    ask_price, 
-    type, 
-    link,
-    requirement,
-  });
-  res.end();
+  // const { Amenities, AboutProject,  ProjectName, Sector, ProjectPhotos, 
+  // ProjectBrochure, PriceStartsfrom, PricePerSQFT, Nooffloors, AvailableFrom, } = req.body
+  const data = await xata.db.property.create(req.body);
+  res.send(data);
 };
 
 export default handler;

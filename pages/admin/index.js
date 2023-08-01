@@ -66,19 +66,13 @@ const Index = () => {
                                        name
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                      Type
-                                    </th>
-                                    <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                       phone number
+                                        Nooffloors
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                        Ask Price
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                       Link
-                                    </th>
-                                    <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                        Requirement
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                     Actions
@@ -92,24 +86,18 @@ const Index = () => {
                                          {index+1}. 
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                        {data.name}  
+                                        {data.ProjectName}  
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                    {data.type}
+                                    {data.Nooffloors}
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                        +91 {data.phoneNumber}
+                                        {data.PriceStartsfrom}
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                        {data.ask_price}
-                                    </td>
-                                    <td className="text-center px-5 py-5 bg-white text-sm">
-                                    <a className='text-blue-500' href={`https://web.whatsapp.com/send?phone=919999061692&text=ask_price%20:${data.ask_price}%3A%20%2Cname:${data.title}`} >
+                                    <a className='text-blue-500' href={data.ProjectBrochure} >
                                     link</a>
                                     </td>
-                                    <td className="text-center px-5 py-5 bg-white text-sm">
-                                    {data.requirement}
-                                    </td> 
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                         <span onClick={()=>router.push(`/admin/property/${data.id}`)} className="mr-3 relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
                                             <span aria-hidden className="absolute inset-0 bg-yellow-200 opacity-50 rounded-full" />
