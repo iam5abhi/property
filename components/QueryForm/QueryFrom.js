@@ -44,7 +44,7 @@ export default function QueryFrom({setOpen,open,id}) {
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
       </Transition.Child>
       <div className="fixed inset-0 z-10 overflow-y-auto">
-        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <div className="flex md:min-h-full mt-36 items-end justify-center p-4 text-center sm:items-center sm:p-0">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
