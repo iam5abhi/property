@@ -2,37 +2,14 @@ import { useRouter } from 'next/router';
 import React,{useState,useEffect} from 'react'
 import PrivateRoute from '../../../PrivateRoute/PrivateRoute';
 import Link from 'next/link';
+import AddQuery from '../../../components/Admin/AddQuery/AddQuery';
 
 const Index = () => {
     const router = useRouter();
     const [queries,setQueries]=useState()
+    const [open,setOpen]=useState(false)
     
-    // const deleteContacts = (id) => {
-    //     fetch("/api/property/delete-property", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ id: id }),
-    //     }).then(() => {
-    //         getCategotyData()
-    //         alert("delete Succfully")
-    //     });
-    // }; 
     
-    // const statsContacts = (data,status) => {
-    //     fetch("/api/property/status-property", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({ data: data , status: status }),
-    //     }).then(() => {
-    //         getCategotyData()
-    //         alert("delete Succfully")
-    //     });
-    // };
-
     const getQueriesData = ()=>{
         fetch("/api/queryForm/get-query", { 
             method: "GET",
@@ -52,7 +29,7 @@ const Index = () => {
             <div className="py-8">
                 <div className='px-2 flex justify-between'>
                     <h2 className="text-2xl font-semibold leading-tight">Queries</h2>
-                    {/* <Link href="/admin/property/add" ><h2 className="text-lg font-semibold leading-tight bg-blue-900 text-white rounded-full shadow px-5 py-1">Add Queries</h2></Link> */}
+                    <h2 onClick={()=>setOpen(true)} className="cursor-pointer text-lg font-semibold leading-tight bg-blue-900 text-white rounded-full shadow px-5 py-1">Add Queries</h2>
                 </div>
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                     <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
@@ -71,9 +48,9 @@ const Index = () => {
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                        phone number
                                     </th>
-                                    {/* <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                    Actions
-                                    </th> */}
+                                    <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        Actions
+                                    </th> 
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,16 +68,12 @@ const Index = () => {
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                         {data.phoneNumber}
                                     </td>
-                                    {/* <td className="text-center px-5 py-5 bg-white text-sm">
-                                        <span onClick={()=>router.push(`/admin/property/${data.id}`)} className="mr-3 relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
+                                      <td className="text-center px-5 py-5 bg-white text-sm">
+                                        <span onClick={()=>router.push(`/admin/queries/${data.id}`)} className="mr-3 cursor-pointer relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
                                             <span aria-hidden className="absolute inset-0 bg-yellow-200 opacity-50 rounded-full" />
                                             <span className="relative">Update</span>
                                         </span>
-                                        <span onClick={()=>deleteContacts(data.id)} className={`relative inline-block px-3 py-1 font-semibold text-red-800 leading-tight`}>
-                                            <span aria-hidden className={`absolute inset-0 bg-red-200 opacity-50 rounded-full`} />
-                                            <span className="relative">Delete</span>
-                                        </span>
-                                    </td> */}
+                                    </td> 
                                 </tr>
                                 })}
                             </tbody>
@@ -109,7 +82,7 @@ const Index = () => {
                 </div>
             </div>
         </div>
-
+        <AddQuery setOpen={setOpen} open={open} getQueriesData={getQueriesData} />
         </>
     )
 }
