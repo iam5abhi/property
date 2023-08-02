@@ -95,7 +95,7 @@ export default function AddQuery({setOpen,open,getQueriesData}) {
                               </div>
                               <div >
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name <span class="text-red-600">*</span></label>
-                                <input type="text" name='name' onChange={handleChange} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Name' required/>
+                                <input type="text" name='name' onChange={handleChange} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Name' />
                               </div>
                               <div className='mt-1'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email <span class="text-red-600">*</span></label>
@@ -103,7 +103,7 @@ export default function AddQuery({setOpen,open,getQueriesData}) {
                               </div>
                               <div className='mt-1'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number <span class="text-red-600">*</span></label>
-                                <input type="text" name='phoneNumber' onChange={handleChange} id="phonenumber" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Number' required/>
+                                <input type="text" name='phoneNumber' maxLength={10} onChange={handleChange} id="phonenumber" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Number' />
                               </div>
                             <div className='grid justify-items-center mt-5'>
                               <button type="submit" className="text-white bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-2 text-center mr-3 md:mr-0">Submit</button>

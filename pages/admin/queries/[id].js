@@ -110,7 +110,7 @@ const UpdateContact = () => {
                   </div>
                   <div className="mb-4">
                     <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
-                    <input type="text" id="name" name='name' value={formData.name} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Name" required />
+                    <input type="text" id="name" name='name' value={formData.name} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Name" />
                   </div>
                   <div className="mb-4">
                     <label htmlfor="ask_price" className="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
@@ -118,20 +118,20 @@ const UpdateContact = () => {
                   </div>
                   <div className="mb-4">
                     <label htmlfor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">Phone</label>
-                    <input type="text" id="number" name="phoneNumber" value={formData.phoneNumber} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Phone" required />
+                    <input type="text" id="number" name="phoneNumber" maxLength={10} value={formData.phoneNumber} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Phone" />
                   </div>
                   <div className="mb-4">
                     <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Expacted Budget</label>
-                    <input type="link" id="ask_price"  name='expactedBudget' value={formData.expactedBudget} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Expacted Budget" required />
+                    <input type="link" id="ask_price"  name='expactedBudget' value={formData.expactedBudget} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Expacted Budget" />
                   </div>
                   <div className="mb-4">
                     <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Budget</label>
-                    <input type="link" id="ask_price"  name='budget' value={formData.budget} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Budget" required />
+                    <input type="link" id="ask_price"  name='budget' value={formData.budget} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Budget" />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900"> Select an Staus </label>
                     <select id="AvailableFrom" value={formData.status} name="status" onChange={onChangeHandler}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required >
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" >
                       <option value="">Choose Status</option>
                       <option value="newlead">New Lead</option>
                       <option value="converted">Converted</option>
