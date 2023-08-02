@@ -97,17 +97,17 @@ const UpdateContact = () => {
   return (
     <>
       <div className="max-w-screen mx-auto">
-        <div className="container mx-auto py-10">
+        <div className="container mx-auto">
           <div className="p-4">
             <div className="w-full mx-auto md:w-[100%]">
             <form
                 onSubmit={handleSubmit}
-                className="bg-white shadow-xl py-14 rounded-lg p-5"
+                className="bg-white md:shadow-xl py-6 rounded-lg md:px-10 px-0"
               >
                 <h1 className="font-bold text-3xl text-center">
                   Update Queries
                 </h1>
-               <div className="flex justify-between mt-2 mb-8">
+               <div className="flex justify-between mt-2 mb-6">
                 <h1 className="font-bold">
                   Date : <span className="font-normal">{date}</span>
                   </h1>
@@ -116,40 +116,41 @@ const UpdateContact = () => {
                   </h1>
                </div>
                 <input type="hidden" name="remember" defaultValue="true" />
-                <div className="mt-8 space-y-4 ">
+                <div className="mt-6 grid grid-cols-3 gap-x-5">
                   <div className="mb-4">
-                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900"> Select an option </label>
-                    <select id="AvailableFrom" value={formData.ProjectID} name="ProjectID" onChange={onChangeHandler}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required >
+                    <label htmlFor="category" className="block mb-2 md:text-sm text-xs font-medium text-gray-900"> Select an option </label>
+                    <select id="AvailableFrom" disabled value={formData.ProjectID} name="ProjectID" onChange={onChangeHandler}
+                      className="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required >
                       <option value="">Choose Project</option>
                       {projects.map((data)=><option value={data.id}>{data.ProjectName}({data.requirement})</option>)}
                       
                     </select>
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
-                    <input type="text" id="name" name='name' value={formData.name} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Name" />
+                    <label htmlfor="name" className="block mb-2 md:text-sm text-xs font-medium text-gray-900 ">Name</label>
+                    <input type="text" id="name" disabled name='name' value={formData.name} onChange={onChangeHandler} className="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Name" />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="ask_price" className="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
-                    <input type="text" id="number" name='email' value={formData.email} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Email" required />
+                    <label htmlfor="ask_price" className="block mb-2 md:text-sm text-xs font-medium text-gray-900 ">Email</label>
+                    <input type="text" id="number" disabled name='email' value={formData.email} onChange={onChangeHandler} className="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Email" required />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">Phone</label>
-                    <input type="text" id="number" name="phoneNumber" maxLength={10} value={formData.phoneNumber} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Phone" />
+                    <label htmlfor="phone" className="block mb-2 md:text-sm text-xs font-medium text-gray-900 ">Phone</label>
+                    <input type="text" id="number" disabled name="phoneNumber" maxLength={10} value={formData.phoneNumber} onChange={onChangeHandler} className="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Phone" />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Expacted Budget</label>
-                    <input type="link" id="ask_price"  name='expactedBudget' value={formData.expactedBudget} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Expacted Budget" />
+                    <label htmlfor="link" className="block mb-2 md:text-sm text-xs font-medium text-gray-900 ">Budget</label>
+                    <input type="link" id="ask_price" disabled name='budget' value={formData.budget} onChange={onChangeHandler} className="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Budget" />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Budget</label>
-                    <input type="link" id="ask_price"  name='budget' value={formData.budget} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Budget" />
+                    <label htmlfor="link" className="block mb-2 md:text-sm text-xs font-medium text-gray-900 ">Expacted Budget</label>
+                    <input type="link" id="ask_price" name='expactedBudget' value={formData.expactedBudget} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Expacted Budget" />
                   </div>
-                  <div className="mb-4">
-                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900"> Select an Staus </label>
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="category" className="block mb-2 md:text-sm text-xs font-medium text-gray-900"> Select an Staus </label>
                     <select id="AvailableFrom" value={formData.status} name="status" onChange={onChangeHandler}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" >
+                      className="bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" >
                       <option value="">Choose Status</option>
                       <option value="newlead">New Lead</option>
                       <option value="converted">Converted</option>
@@ -158,8 +159,8 @@ const UpdateContact = () => {
                     </select>
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Remarks</label>
-                    <textarea type="link" id="ask_price" rows={3}  name='remarks' value={formData.remarks} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Remarks" />
+                    <label htmlfor="link" className="block mb-2 md:text-sm text-xs font-medium text-gray-900 ">Remarks</label>
+                    <textarea type="link" id="ask_price" rows={3}  name='remarks' value={formData.remarks} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Remarks" />
                   </div>
                   <div className="text-center mb-6">
                     <button
@@ -171,7 +172,6 @@ const UpdateContact = () => {
                       Submit
                     </button>
                   </div>
-                </div>
               </form>
             </div>
           </div>
