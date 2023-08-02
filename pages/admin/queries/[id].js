@@ -2,11 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import PrivateRoute from "../../../PrivateRoute/PrivateRoute";
+import { getDate, getTime } from '../../../features/getDate'
 
 const UpdateContact = () => {
   const router = useRouter();
   const { id } = router.query;
   const [projects,setProjects]=useState([])
+  const [date,setDate]=useState('')
+  const [time,setTime]=useState('')
   const [formData, setFormData] = useState({
     ProjectID:'',  
     phoneNumber:'', 
@@ -14,9 +17,11 @@ const UpdateContact = () => {
     email:'', 
     expactedBudget:'',
     budget:'',
-    status:''
+    status:'',
+    remarks:''
   });
 
+  console.log(date,"date")
   const onChangeHandler = (event) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -59,8 +64,13 @@ const UpdateContact = () => {
           email:data.email, 
           expactedBudget:data.expactedBudget,
           budget:data.budget,
-          status:data.status
+          status:data.status,
+          remarks:data.remarks
         });
+        const date = getDate(data.xata.createdAt)
+        const Time = getTime(data.xata.createdAt)
+        setDate(date)
+        setTime(Time)
       })
       .catch((error) => {
         // Handle any errors that occurred during the fetch or JSON parsing
@@ -89,14 +99,22 @@ const UpdateContact = () => {
       <div className="max-w-screen mx-auto">
         <div className="container mx-auto py-10">
           <div className="p-4">
-            <div className="w-full mx-auto md:w-[35%]">
+            <div className="w-full mx-auto md:w-[100%]">
             <form
                 onSubmit={handleSubmit}
                 className="bg-white shadow-xl py-14 rounded-lg p-5"
               >
-                <h1 className="font-bold text-3xl mb-8 text-center">
-                  Property Queries
+                <h1 className="font-bold text-3xl text-center">
+                  Update Queries
                 </h1>
+               <div className="flex justify-between mt-2 mb-8">
+                <h1 className="font-bold">
+                  Date : <span className="font-normal">{date}</span>
+                  </h1>
+                  <h1 className="font-bold">
+                  Time : <span className="font-normal">{time}</span>
+                  </h1>
+               </div>
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="mt-8 space-y-4 ">
                   <div className="mb-4">
@@ -104,7 +122,7 @@ const UpdateContact = () => {
                     <select id="AvailableFrom" value={formData.ProjectID} name="ProjectID" onChange={onChangeHandler}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required >
                       <option value="">Choose Project</option>
-                      {projects.map((data)=><option value={data.id}>{data.ProjectName}</option>)}
+                      {projects.map((data)=><option value={data.id}>{data.ProjectName}({data.requirement})</option>)}
                       
                     </select>
                   </div>
@@ -137,8 +155,11 @@ const UpdateContact = () => {
                       <option value="converted">Converted</option>
                       <option value="rejected">Rejected</option>
                       <option value="onhold">OnHold</option>
-                      <option value="calldate">Call Date</option>
                     </select>
+                  </div>
+                  <div className="mb-4">
+                    <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Remarks</label>
+                    <textarea type="link" id="ask_price" rows={3}  name='remarks' value={formData.remarks} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Remarks" />
                   </div>
                   <div className="text-center mb-6">
                     <button

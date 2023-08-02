@@ -5,7 +5,7 @@ const xata = getXataClient();
 
 const handler = async (req, res) => {
 
-  const { id, ProjectID, phoneNumber, name, email, expactedBudget, budget, status, } = req.body;
+  const { id, ProjectID, phoneNumber, name, email, expactedBudget, budget, status, remarks } = req.body;
   const results = await xata.db.QueryForm.createOrUpdate(id,{
     ProjectID, 
     phoneNumber,
@@ -14,6 +14,7 @@ const handler = async (req, res) => {
     expactedBudget,
     budget,
     status,
+    remarks,
   });
   res.send(results);
 };
