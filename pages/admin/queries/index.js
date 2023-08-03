@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import React,{useState,useEffect} from 'react'
 import PrivateRoute from '../../../PrivateRoute/PrivateRoute';
-import Link from 'next/link';
 import AddQuery from '../../../components/Admin/AddQuery/AddQuery';
 
 const Index = () => {
@@ -9,7 +8,33 @@ const Index = () => {
     const [queries,setQueries]=useState()
     const [open,setOpen]=useState(false)
     
-    
+    const SearchHandler =(event)=>{
+        fetch("/api/search/search", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(event.target.value),
+        })
+        .then((res) => { 
+        if (!res.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return res.json();
+        })
+        .then((data) => {
+        // Data is the parsed JSON object
+        setFormData({
+            logo:data.logo, 
+            alternatePhoneNumber:data.alternatePhoneNumber, 
+            phoneNumber:data.phoneNumber, 
+            email:data.email, 
+            about:data.about,
+        });
+        })
+        .catch((error) => {console.error("Error fetching or parsing data:", error)});
+    }
+
     const getQueriesData = ()=>{
         fetch("/api/queryForm/get-query", { 
             method: "GET",
@@ -29,7 +54,10 @@ const Index = () => {
             <div className="py-8">
                 <div className='px-2 flex justify-between'>
                     <h2 className="text-2xl font-semibold leading-tight">Queries</h2>
-                    <h2 onClick={()=>setOpen(true)} className="cursor-pointer text-lg font-semibold leading-tight bg-blue-900 text-white rounded-full shadow px-5 py-1">Add Queries</h2>
+                    <div className='flex gap-2'>
+                        <input type="text" name='email' onChange={SearchHandler} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1" placeholder='Search' />
+                        <h2 onClick={()=>setOpen(true)} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Add Queries</h2>
+                    </div>
                 </div>
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                     <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
@@ -53,6 +81,9 @@ const Index = () => {
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                         Expacted Budget
+                                    </th>
+                                    <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                         Status
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                         Actions
@@ -79,6 +110,12 @@ const Index = () => {
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                         {data.expactedBudget}
+                                    </td>  
+                                    <td className="text-center px-5 py-5 bg-white text-sm">
+                                        <span className="mr-3 cursor-pointer relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                            <span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full" />
+                                            <span className="relative">{data.status}</span>
+                                        </span>
                                     </td>  
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                         <span onClick={()=>router.push(`/admin/queries/${data.id}`)} className="mr-3 cursor-pointer relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">

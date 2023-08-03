@@ -73,18 +73,18 @@ const AddContact = () => {
           />
       </Head>
       <div className="max-w-screen mx-auto">
-        <div className="container mx-auto py-10">
+        <div className="container mx-auto">
           <div className="p-4">
-            <div className="w-full mx-auto md:w-[50%]">
+            <div className="w-full mx-auto md:w-[100%]">
               <form
                 onSubmit={handleSubmit}
-                className="bg-white shadow-xl py-14 rounded-lg p-5"
+                className="bg-white shadow-xl py-8 rounded-lg p-5"
               >
                 <h1 className="font-bold text-3xl mb-8 text-center">
                   Property Add
                 </h1>
                 <input type="hidden" name="remember" defaultValue="true" />
-                <div className="mt-8 space-y-4">
+                <div className="mt-8 gap-x-4 grid grid-cols-3">
                   <div className="mb-4">
                     <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Project Name</label>
                     <input type="text" id="name" name='ProjectName' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Project Name" required />
@@ -101,6 +101,34 @@ const AddContact = () => {
                     <label htmlfor="Nooffloors" className="block mb-2 text-sm font-medium text-gray-900 ">No Of Floors</label>
                     <input type="text" id="number" name='Nooffloors' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="No Of Floors" required />
                   </div>
+                  <div className="mb-4">
+                    <label htmlfor="PricePerSQFT" className="block mb-2 text-sm font-medium text-gray-900 ">Price Per SQFT?</label>
+                    <input type="text" id="number" name='PricePerSQFT' onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="No Of Floors" required />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="category"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Select an option
+                    </label>
+                    <select
+                      id="AvailableFrom"
+                      name="AvailableFrom"
+                      onChange={onChangeHandler}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      required
+                    >
+                      <option value="">Choose</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                      <option value="2029">2029</option>
+                      <option value="2030">2030</option>
+                    </select>
+                  </div>
                   <div className="mb-4 flex gap-5">
                     <div className="flex gap-1">
                         <input type="radio" id="name" name='type' value="residential" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
@@ -111,6 +139,7 @@ const AddContact = () => {
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">commercial</label>
                     </div>
                   </div>
+                  
                   <div className="mb-4 flex gap-5">
                     <div className="flex gap-1">
                         <input type="radio" id="name" name='requirement' value="buy" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
@@ -121,17 +150,28 @@ const AddContact = () => {
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Lease</label>
                     </div>
                   </div>
-                  <div className="mb-4 flex gap-5">
-                    <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Price Per SQFT?</label>
-                    <div className="flex gap-1">
-                        <input type="radio" id="name" name='PricePerSQFT' value="yes" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
-                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Yes</label>
-                    </div>
-                    <div className="flex gap-1">
-                        <input type="radio" id="name" name='PricePerSQFT' value="no" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
-                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">No</label>
-                    </div>
+                  <div className='mb-5'>
+                      <span className="font-bold">ProjectPhotos &nbsp; &nbsp;&nbsp;</span>
+                      <button
+                      className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                      type='button'
+                      onClick={()=>openupWidget("ProjectPhotos")}
+                      >
+                      Upload Image
+                      </button>
                   </div>
+                  <div className='mb-5'>
+                      <span className="font-bold">ProjectBrochure &nbsp;</span>
+                      <button
+                      className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                      type='button'
+                      onClick={()=>openupWidget("ProjectBrochure")}
+                      >
+                     Pdf Upload
+                      </button>
+                  </div>
+                </div>
+                
                   <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">BasicAmenities</label>
                   <div className="mb-4 grid grid-cols-3">
                     <div className="flex gap-1">
@@ -171,58 +211,14 @@ const AddContact = () => {
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Fire Fighting Systems</label>
                     </div> 
                   </div> 
-                  <div className="mb-4">
-                    <label
-                      htmlFor="category"
-                      className="block mb-2 text-sm font-medium text-gray-900"
-                    >
-                      Select an option
-                    </label>
-                    <select
-                      id="AvailableFrom"
-                      name="AvailableFrom"
-                      onChange={onChangeHandler}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                      required
-                    >
-                      <option value="">Choose</option>
-                      <option value="2024">2024</option>
-                      <option value="2025">2025</option>
-                      <option value="2026">2026</option>
-                      <option value="2027">2027</option>
-                      <option value="2028">2028</option>
-                      <option value="2029">2029</option>
-                      <option value="2030">2030</option>
-                    </select>
-                  </div>
-                  <div>
+                  <div className="mb-6">
                     <label htmlFor="message" className="block mb-2 text-xl font-medium text-gray-900">Project Description
                     </label>
                     {!ReactQuill?null:
                     <ReactQuill theme="snow" value={aboutProject} onChange={setAboutProject} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 " placeholder="Write your project description here..."/>      
                     }
                   </div>
-                  <div className='mb-5'>
-                      <span className="font-bold">ProjectPhotos &nbsp; &nbsp;&nbsp;</span>
-                      <button
-                      className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                      type='button'
-                      onClick={()=>openupWidget("ProjectPhotos")}
-                      >
-                      Upload Image
-                      </button>
-                  </div>
-                  <div className='mb-5'>
-                      <span className="font-bold">ProjectBrochure &nbsp;</span>
-                      <button
-                      className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                      type='button'
-                      onClick={()=>openupWidget("ProjectBrochure")}
-                      >
-                     Pdf Upload
-                      </button>
-                  </div>
-                  <div className="text-center mb-6">
+                  <div className="text-center">
                     <button
                       type="submit"
                       className="rounded-full cursor-pointer flex w-[30%] mx-auto justify-center 
@@ -231,7 +227,6 @@ const AddContact = () => {
                     >
                       Submit
                     </button>
-                  </div>
                 </div>
               </form>
             </div>
