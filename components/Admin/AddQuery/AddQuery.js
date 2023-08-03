@@ -5,7 +5,7 @@ import { Dialog, Transition } from '@headlessui/react'
 
 export default function AddQuery({setOpen,open,getQueriesData}) {
   const cancelButtonRef = useRef(null)
-  const [formData,setFormData]=useState({ProjectID:'',name:'',email:'',phoneNumber:''})
+  const [formData,setFormData]=useState({ProjectID:'',name:'',email:'',phoneNumber:'',expactedBudget:''})
   const [projects,setProjects]=useState([])
 
 
@@ -18,12 +18,13 @@ export default function AddQuery({setOpen,open,getQueriesData}) {
 
   const handleSubmit =(event)=>{
       event.preventDefault();
+      let projectData = projects.filter(data=>data.id==formData.ProjectID)
       fetch("/api/queryForm/query-form", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({...formData,ProjectName:projectData[0].ProjectName,budget:projectData[0].PriceStartsfrom}),
       }).then((res) => {
         getQueriesData() 
         setOpen(false)
@@ -105,6 +106,10 @@ export default function AddQuery({setOpen,open,getQueriesData}) {
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number <span class="text-red-600">*</span></label>
                                 <input type="text" name='phoneNumber' maxLength={10} onChange={handleChange} id="phonenumber" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Number' required/>
                               </div>
+                              <div className='mt-1'>
+                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expacted Budget <span class="text-red-600">*</span></label>
+                                <input type="text" name='expactedBudget' onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Expacted Budget' required/>
+                              </div> 
                             <div className='grid justify-items-center mt-5'>
                               <button type="submit" className="text-white bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-2 text-center mr-3 md:mr-0">Submit</button>
                             </div>

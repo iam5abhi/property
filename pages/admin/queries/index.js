@@ -72,9 +72,15 @@ const Index = () => {
                                         {data.phoneNumber}
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                    {data.email}
+                                        {data.ProjectName}
                                     </td>
-                                      <td className="text-center px-5 py-5 bg-white text-sm">
+                                    <td className="text-center px-5 py-5 bg-white text-sm">
+                                        {data.budget}
+                                    </td>
+                                    <td className="text-center px-5 py-5 bg-white text-sm">
+                                        {data.expactedBudget}
+                                    </td>  
+                                    <td className="text-center px-5 py-5 bg-white text-sm">
                                         <span onClick={()=>router.push(`/admin/queries/${data.id}`)} className="mr-3 cursor-pointer relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
                                             <span aria-hidden className="absolute inset-0 bg-yellow-200 opacity-50 rounded-full" />
                                             <span className="relative">Update</span>
