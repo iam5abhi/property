@@ -2,6 +2,9 @@ import { useRouter } from 'next/router';
 import React,{useState,useEffect} from 'react'
 import PrivateRoute from '../../../PrivateRoute/PrivateRoute';
 import AddQuery from '../../../components/Admin/AddQuery/AddQuery';
+// https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=${user.PhoneNumber}&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%20${otp}%20EDUTEK&route=1014&peid=1201159350821274881
+// api for message 
+
 
 const Index = () => {
     const router = useRouter();
@@ -14,9 +17,13 @@ const Index = () => {
             getQueriesData();
         } else {
             const filteredList = queries.filter((item) => {
-                return item.ProjectName&&item.phoneNumber&&item.status.toLowerCase().includes(query);
+                const projectNameMatch = item.ProjectName.toLowerCase().includes(query);
+                const phoneNumberMatch = item.phoneNumber.toLowerCase().includes(query);
+                const statusMatch = item.status.toLowerCase().includes(query);
+
+                return projectNameMatch || phoneNumberMatch || statusMatch;
             });
-            console.log(filteredList,"filteredList")
+            console.log(filteredList, "filteredList");
             setQueries(filteredList);
         }
     }
