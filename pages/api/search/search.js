@@ -2,13 +2,29 @@ import { getXataClient } from '../../../src/xata';
 const xata = getXataClient();
 
 const handler = async (req, res) => {
-  const records = await xata.db.homePage.search.all(req.body, {
-    filter: {ProjectName},
+  const { term } = req.query;
+ 
+  const results = await xata.search.all(term, {
+    tables: [
+      {
+        table: 'homePage',
+        target: ['name', 'username', 'meta.description', 'meta.location']
+      }
+    ],
     fuzziness: 1,
+    prefix: 'phrase'
   });
-  // const records = await xata.db.property.filter(req.body).getMany();
-  res.send(records);
+ 
+  const enrichedResults = results.map((result) => {
+    return {
+      ...result,
+      ...result.record.getMetadata()
+    };
+  });
+ 
+  res.json(enrichedResults);
 
 };
 
 export default handler;
+

@@ -5,34 +5,19 @@ import AddQuery from '../../../components/Admin/AddQuery/AddQuery';
 
 const Index = () => {
     const router = useRouter();
-    const [queries,setQueries]=useState()
+    const [queries,setQueries]=useState([])
     const [open,setOpen]=useState(false)
     
-    const SearchHandler =(event)=>{
-        fetch("/api/search/search", {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(event.target.value),
-        })
-        .then((res) => { 
-        if (!res.ok) {
-            throw new Error("Network response was not ok");
+    const SearchHandler = async (event)=>{
+        const query = event.target.value.toLowerCase();
+        if (query === '') {
+            getQueriesData();
+        } else {
+            const filteredList = queries.filter((item) => {
+                return item.name.toLowerCase().includes(query);
+            });
+            setQueries(filteredList);
         }
-        return res.json();
-        })
-        .then((data) => {
-        // Data is the parsed JSON object
-        setFormData({
-            logo:data.logo, 
-            alternatePhoneNumber:data.alternatePhoneNumber, 
-            phoneNumber:data.phoneNumber, 
-            email:data.email, 
-            about:data.about,
-        });
-        })
-        .catch((error) => {console.error("Error fetching or parsing data:", error)});
     }
 
     const getQueriesData = ()=>{

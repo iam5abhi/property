@@ -1,16 +1,31 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { auth, logout } from "../../components/firebase/index";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const Header = () => {
     const [user] = useAuthState(auth);
+    const [data,setData]=useState()
+
+    const getData = ()=>{
+        fetch("/api/details/get-details", { 
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }).then((res) => {return res.json()}
+          ).then((res) => setData(res[0].logo))
+    }
+
+    useEffect(() => {
+        getData();
+    }, [])
     return (
         <>
                 <nav className="bg-white border-gray-200 shadow">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <a href className="flex items-center">
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap ">Logo</span>
+                        <span className="self-center font-semibold whitespace-nowrap "><img src={data} className='h-8' /></span>
                     </a>
                     {!user ? null :
                         <div className="flex md:order-2">
