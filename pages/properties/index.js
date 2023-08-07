@@ -17,7 +17,7 @@ const index = () => {
                     </div>
                 </div>
 
-                <div className="max-w-screen mx-auto">
+                <div className="max-w-screen mx-auto mt-10 md:mt-0">
                     <div className="container mx-auto py-6">
                         <div className="px-4">
                         <h2 className='text-2xl font-bold text-center py-8 md:text-4xl md:py-16'>Do you want to:  </h2>

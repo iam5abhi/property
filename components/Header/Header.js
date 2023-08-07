@@ -50,7 +50,7 @@ const Header = () => {
                                 <Link href="/admin" className="block py-2 pl-3 pr-4 text-violet-950  rounded md:bg-transparent md:p-0 " aria-current="page">Home</Link>
                             </li>
                             <li>
-                                <Link href="/admin/details" className="block py-2 pl-3 pr-4 text-violet-950  rounded md:bg-transparent md:p-0 " aria-current="page">Details</Link>
+                                <Link href="/admin/details" className="block py-2 pl-3 pr-4 text-violet-950  rounded md:bg-transparent md:p-0 " aria-current="page">Home Details</Link>
                             </li>
                             <li>
                                 <Link href="/admin/queries" className="block py-2 pl-3 pr-4 text-violet-950  rounded md:bg-transparent md:p-0 " aria-current="page">Queries</Link>

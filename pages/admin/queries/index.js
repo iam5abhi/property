@@ -14,8 +14,9 @@ const Index = () => {
             getQueriesData();
         } else {
             const filteredList = queries.filter((item) => {
-                return item.name.toLowerCase().includes(query);
+                return item.ProjectName&&item.phoneNumber&&item.status.toLowerCase().includes(query);
             });
+            console.log(filteredList,"filteredList")
             setQueries(filteredList);
         }
     }
