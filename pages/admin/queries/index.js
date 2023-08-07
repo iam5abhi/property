@@ -11,6 +11,42 @@ const Index = () => {
     const [queries,setQueries]=useState([])
     const [open,setOpen]=useState(false)
     
+
+    const BroadcastHandler = async () => {
+        // const phoneNumbers = queries.map(data => data.PhoneNumber);
+    
+        // const requestOptions = {
+        //     method: "GET",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        // };
+    
+        // // Use Promise.all to send SMS messages to all phone numbers concurrently
+        // await Promise.all(
+        //     phoneNumbers.map(phoneNumber => {
+        //         const url = `https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=${9549726127}&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%20${1018}%20EDUTEK&route=1014&peid=1201159350821274881`;
+    
+        //         return fetch(url, requestOptions)
+        //             .then(res => res.json())
+        //             .catch(error => {
+        //                 console.error(`Error sending SMS to ${phoneNumber}:`, error);
+        //                 // Handle error as needed
+        //             });
+        //     })
+        // );
+        const corsAnywhereProxy = 'https://thingproxy.freeboard.io/';
+        const apiUrl = 'https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=9549726127&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%201018%20EDUTEK&route=1014&peid=1201159350821274881';
+        const fullApiUrl = corsAnywhereProxy + apiUrl;
+        fetch(fullApiUrl, { 
+            method: "GET",
+            headers: {
+              "Content-Type": 'Access-Control-Allow-Headers',
+            },
+          }).then((res) => {return res.json()}
+          ).then((res) => setQueries(res))
+    };
+
     const SearchHandler = async (event)=>{
         const query = event.target.value.toLowerCase();
         if (query === '') {
@@ -50,6 +86,7 @@ const Index = () => {
                     <div className='flex gap-2'>
                         <input type="text" name='email' onChange={SearchHandler} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1" placeholder='Search' />
                         <h2 onClick={()=>setOpen(true)} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Add Queries</h2>
+                        <h2 onClick={BroadcastHandler} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Broadcast</h2>
                     </div>
                 </div>
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
