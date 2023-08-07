@@ -95,8 +95,8 @@ const Index = () => {
                 </div>
             </div>
         </div>
-        <AddDetails setOpen={setOpen} open={open} getQueriesData={getQueriesData} />
-        <UpdateDetails setOpen={setUpdateOpen} open={updateOpen} id={Id} getQueriesData={getQueriesData} />
+       {!open?null: <AddDetails setOpen={setOpen} open={open} getQueriesData={getQueriesData} />}
+        {!updateOpen?null: <UpdateDetails setOpen={setUpdateOpen} open={updateOpen} id={Id} getQueriesData={getQueriesData} />}
         </>
     )
 }

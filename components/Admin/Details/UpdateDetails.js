@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import Head from 'next/head';
 
 
-export default function UpdateDetails({setOpen,open,getQueriesData,id}) {
+function UpdateDetails({setOpen,open,getQueriesData,id}) {
   const cancelButtonRef = useRef(null)
   const [formData,setFormData]=useState({logo:'',alternatePhoneNumber:'',email:'',phoneNumber:'',about:''})
 
@@ -29,12 +29,12 @@ export default function UpdateDetails({setOpen,open,getQueriesData,id}) {
 
   const handleSubmit =(event)=>{
       event.preventDefault();
-      fetch("/api/details/add-details", {
+      fetch("/api/details/update-details", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({...formData,id:id}),
       }).then((res) => {
         getQueriesData() 
         setOpen(false)
@@ -164,3 +164,4 @@ export default function UpdateDetails({setOpen,open,getQueriesData,id}) {
   </>
   )
 }
+export default React.memo(UpdateDetails)

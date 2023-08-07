@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,memo } from 'react';
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Head from 'next/head';
 
 
-export default function AddDetails({setOpen,open,getQueriesData}) {
+function AddDetails({setOpen,open,getQueriesData}) {
   const cancelButtonRef = useRef(null)
   const [formData,setFormData]=useState({logo:'',alternatePhoneNumber:'',email:'',phoneNumber:'',about:''})
 
@@ -133,3 +133,4 @@ export default function AddDetails({setOpen,open,getQueriesData}) {
   </>
   )
 }
+export default React.memo(AddDetails)
