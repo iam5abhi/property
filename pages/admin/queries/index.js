@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import React,{useState,useEffect} from 'react'
 import PrivateRoute from '../../../PrivateRoute/PrivateRoute';
 import AddQuery from '../../../components/Admin/AddQuery/AddQuery';
+import axios from 'axios';
 // https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=${user.PhoneNumber}&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%20${otp}%20EDUTEK&route=1014&peid=1201159350821274881
 // api for message 
 
@@ -35,10 +36,10 @@ const Index = () => {
         //             });
         //     })
         // );
-        const corsAnywhereProxy = 'https://thingproxy.freeboard.io/';
+        // const corsAnywhereProxy = 'https-://thingproxy.freeboard.io/';
         const apiUrl = 'https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=9549726127&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%201018%20EDUTEK&route=1014&peid=1201159350821274881';
-        const fullApiUrl = corsAnywhereProxy + apiUrl;
-        fetch(fullApiUrl, { 
+        // const fullApiUrl = corsAnywhereProxy + apiUrl;
+        axios(apiUrl, { 
             method: "GET",
             headers: {
               "Content-Type": 'Access-Control-Allow-Headers',
@@ -88,6 +89,7 @@ const Index = () => {
                         <h2 onClick={()=>setOpen(true)} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Add Queries</h2>
                         <h2 onClick={BroadcastHandler} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Broadcast</h2>
                     </div>
+                    <a href='https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=9549726127&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%201018%20EDUTEK&route=1014&peid=1201159350821274881' >ddd</a>
                 </div>
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                     <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">

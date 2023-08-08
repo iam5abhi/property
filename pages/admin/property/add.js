@@ -179,7 +179,6 @@ const AddContact = () => {
                       </button>
                   </div>
                 </div>
-                
                   <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">BasicAmenities</label>
                   <div className="mb-4 grid grid-cols-3">
                     <div className="flex gap-1">
