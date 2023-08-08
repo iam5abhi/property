@@ -14,38 +14,39 @@ const Index = () => {
     
 
     const BroadcastHandler = async () => {
-        // const phoneNumbers = queries.map(data => data.PhoneNumber);
-    
-        // const requestOptions = {
-        //     method: "GET",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        // };
-    
-        // // Use Promise.all to send SMS messages to all phone numbers concurrently
-        // await Promise.all(
-        //     phoneNumbers.map(phoneNumber => {
-        //         const url = `https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=${9549726127}&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%20${1018}%20EDUTEK&route=1014&peid=1201159350821274881`;
-    
-        //         return fetch(url, requestOptions)
-        //             .then(res => res.json())
-        //             .catch(error => {
-        //                 console.error(`Error sending SMS to ${phoneNumber}:`, error);
-        //                 // Handle error as needed
-        //             });
-        //     })
-        // );
-        // const corsAnywhereProxy = 'https-://thingproxy.freeboard.io/';
-        const apiUrl = 'https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=9549726127&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%201018%20EDUTEK&route=1014&peid=1201159350821274881';
-        // const fullApiUrl = corsAnywhereProxy + apiUrl;
-        axios(apiUrl, { 
+        const phoneNumbers = queries.map(data => data.phoneNumber);
+        
+        console.log(phoneNumbers,"phoneNumbers")
+        const requestOptions = {
             method: "GET",
             headers: {
-              "Content-Type": 'Access-Control-Allow-Headers',
+                "Content-Type": "application/json",
             },
-          }).then((res) => {return res.json()}
-          ).then((res) => setQueries(res))
+        };
+    
+        // Use Promise.all to send SMS messages to all phone numbers concurrently
+        await Promise.all(
+            phoneNumbers.map(phoneNumber => {
+                const url = `https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=${phoneNumber}&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%20${1218}%20EDUTEK&route=1014&peid=1201159350821274881`;
+    
+                return axios(url, requestOptions)
+                    .then(res => res.json())
+                    .catch(error => {
+                        console.error(`Error sending SMS to ${phoneNumber}:`, error);
+                        // Handle error as needed
+                    });
+            })
+        );
+        // const corsAnywhereProxy = 'https-://thingproxy.freeboard.io/';
+        // const apiUrl = 'https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=9549726127&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%201018%20EDUTEK&route=1014&peid=1201159350821274881';
+        // const fullApiUrl = corsAnywhereProxy + apiUrl;
+        // axios(apiUrl, { 
+        //     method: "GET",
+        //     headers: {
+        //       "Content-Type": 'Access-Control-Allow-Headers',
+        //     },
+        //   }).then((res) => {return res.json()}
+        //   ).then((res) => setQueries(res))
     };
 
     const SearchHandler = async (event)=>{
@@ -89,7 +90,6 @@ const Index = () => {
                         <h2 onClick={()=>setOpen(true)} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Add Queries</h2>
                         <h2 onClick={BroadcastHandler} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Broadcast</h2>
                     </div>
-                    <a href='https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=9549726127&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%201018%20EDUTEK&route=1014&peid=1201159350821274881' >ddd</a>
                 </div>
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                     <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
