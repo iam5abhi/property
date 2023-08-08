@@ -10,10 +10,10 @@ const AddContact = () => {
   const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }),[]);
   const [aboutProject,setAboutProject]=useState()
   const [basicAmenities,setBasicAmenities]=useState([])
+  const [projectPhotos,setProjectPhotos]=useState([])
   const [formData, setFormData] = useState({
     ProjectName:'', //done
     Sector:'', //done
-    ProjectPhotos:'', //done
     ProjectBrochure:'', //done
     PriceStartsfrom:'', //done
     PricePerSQFT:'', //done
@@ -35,15 +35,23 @@ const AddContact = () => {
   } 
 
   const openupWidget = (collmnName) => {
-      cloudinary.createUploadWidget(
-        { cloud_name: "fatimaola", upload_preset: "ufa6exrd" },
-        (error, result) => {
-          if (!error && result && result.event === "success") {
-            setFormData({...formData,[collmnName]:result.info.url});
-          }
+    cloudinary.createUploadWidget(
+      {
+        cloud_name: "fatimaola",
+        upload_preset: "ufa6exrd",
+        multiple: true, // Allow multiple image uploads
+      },
+      (error, results) => {
+        if (!error && results && results.event === "success") {
+          // Assuming results.info contains the uploaded image information
+          const imageUrl = results.info.url;
+          // Update projectPhotos with the new image URL
+          if(collmnName=="ProjectBrochure"){
+            setFormData({...formData,[collmnName]:imageUrl});
+          }else{ setProjectPhotos((prevPhotos) => [...prevPhotos, imageUrl]); }
         }
-      )
-      .open();
+      }
+    ).open();
   };
 
   const onChangeHandler = (event) => {
@@ -60,7 +68,7 @@ const AddContact = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({...formData,Amenities:basicAmenities,AboutProject:aboutProject}),
+      body: JSON.stringify({...formData,projectPhotos:projectPhotos,Amenities:basicAmenities,AboutProject:aboutProject}),
     }).then(() => router.push("/admin")); 
   };
 
