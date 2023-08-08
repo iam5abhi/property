@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 
 export default function QueryFrom({setOpen,open,id}) {
   const cancelButtonRef = useRef(null)
-  const [formData,setFormData]=useState({name:'',email:'',phoneNumber:''})
+  const [formData,setFormData]=useState({ProjectID:'',name:'',email:'',phoneNumber:''})
 
 
   const handleChange =(event)=>{
@@ -23,11 +23,29 @@ export default function QueryFrom({setOpen,open,id}) {
             "Content-Type": "application/json",
         },
       body: JSON.stringify({...formData,ProjectID:id}),
-      }).then((res) => { window.open(`https://web.whatsapp.com/send?phone=91${9999061692}&text=ask_price%20:${formData.name}%3A%20%2Cname:${formData.email}`, "_blank") })
+      }).then((res) => { 
+        window.open(`https://web.whatsapp.com/send?phone=91${9999061692}&text=ask_price%20:${formData.name}%3A%20%2Cname:${formData.email}`, "_blank") 
+        setOpen(false)
+      })
   }
 
+  const getContactData = () => {
+    fetch("/api/property/get-singleproperty", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    }).then((res) => { if (!res.ok) { throw new Error("Network response was not ok"); }
+        return res.json(); // Parse the JSON data
+      })
+      .then((data) => { setFormData({ProjectID:data.ProjectID, budget:data.PriceStartsfrom, ProjectName:data.ProjectName}); })
+      .catch((error) => {console.error("Error fetching or parsing data:", error);});
+  };
 
-
+  useEffect(() => {
+    getContactData();
+  }, [id]);
 
   return (
     <Transition.Root show={open} as={Fragment}>   

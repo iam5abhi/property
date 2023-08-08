@@ -24,7 +24,7 @@ export default function AddQuery({setOpen,open,getQueriesData}) {
         headers: {
             "Content-Type": "application/json",
         },
-      body: JSON.stringify({...formData,ProjectName:projectData[0].ProjectName,budget:projectData[0].PriceStartsfrom}),
+      body: JSON.stringify({...formData,ProjectID:projectData[0].ProjectID,ProjectName:projectData[0].ProjectName,budget:projectData[0].PriceStartsfrom}),
       }).then((res) => {
         getQueriesData() 
         setOpen(false)
