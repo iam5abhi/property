@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import Head from 'next/head';
 
 
-export default function AddQuery({setOpen,open,getQueriesData}) {
+function UpdateUrl({setOpen,open,getQueriesData,id}) {
   const cancelButtonRef = useRef(null)
-  const [formData,setFormData]=useState({ProjectID:'',name:'',email:'',phoneNumber:'',expactedBudget:''})
-  const [projects,setProjects]=useState([])
-
+  const [formData,setFormData]=useState({firstUrl:'',secondUrl:''})
 
   const handleChange =(event)=>{
     setFormData((pre)=>({
@@ -18,34 +17,42 @@ export default function AddQuery({setOpen,open,getQueriesData}) {
 
   const handleSubmit =(event)=>{
       event.preventDefault();
-      let projectData = projects.filter(data=>data.id==formData.ProjectID)
-      fetch("/api/queryForm/query-form", {
+      fetch("/api/messageSendUrl/update-url", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-      body: JSON.stringify({...formData,ProjectID:projectData[0].ProjectID,requirement:projectData[0].requirement,ProjectName:projectData[0].ProjectName,budget:projectData[0].PriceStartsfrom}),
+      body: JSON.stringify({...formData,id:id}),
       }).then((res) => {
         getQueriesData() 
         setOpen(false)
       })
   }
 
-  const getProjectData = ()=>{
-    fetch("/api/property/get-property", { 
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => {return res.json()}
-      ).then((res) => setProjects(res))
-  }
+  const getData = () => {
+    fetch("/api/messageSendUrl/get-url", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => { if (!res.ok) { throw new Error("Network response was not ok"); }
+        return res.json();
+      }).then((data) => { setFormData({ firstUrl:data[0].firstUrl, secondUrl:data[0].secondUrl, }); })
+        .catch((error) => {console.error("Error fetching or parsing data:", error)});
+  };
 
-  useEffect(() => {
-    getProjectData();
-  }, [])
+  useEffect(()=>{
+    getData()
+  },[])
 
   return (
+    <>
+      <Head>
+          <script
+          src='https://upload-widget.cloudinary.com/global/all.js'
+          type='text/javascript'
+          />
+      </Head>
     <Transition.Root show={open} as={Fragment}>   
     <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
       <Transition.Child
@@ -79,37 +86,20 @@ export default function AddQuery({setOpen,open,getQueriesData}) {
                         <i onClick={() => setOpen(false)} className="fa-solid fa-xmark text-xs font-extrabold bg-gray-400 h-5 leading-5 w-5 z-50 rounded-full text-center text-white"></i>
                       </div>
                       <Dialog.Title as="h2" className=" text-xl text-center font-semibold">
-                      Query Form
+                        Update Details
                       </Dialog.Title> 
                     <div className="overflow-auto">
                     <div className="container w-11/15 mx-auto px-3 bg-white rounded  ">
                       <div className="relative flex flex-col flex-auto min-w-0 mt-2 p-4 break-words border-0 shadow-blur rounded-2xl bg-white/80 bg-clip-border mb-4 draggable " draggable="true">
                         <form onSubmit={handleSubmit}>
-                              <div className="mb-4">
-                                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900"> Select an option </label>
-                                <select id="AvailableFrom" name="ProjectID" onChange={handleChange}
-                                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required >
-                                  <option value="">Choose Project</option>
-                                  {projects.map((data)=><option value={data.id}>{data.ProjectName}({data.requirement})({data.PriceStartsfrom})</option>)}
-                                  
-                                </select>
-                              </div>
-                              <div >
-                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name <span class="text-red-600">*</span></label>
-                                <input type="text" name='name' onChange={handleChange} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Name' required/>
+                              <div className='mt-1'>
+                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Url <span class="text-red-600">*</span></label>
+                                <input type="text" name='firstUrl' value={formData.firstUrl} onChange={handleChange} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter First Url' required/>
                               </div>
                               <div className='mt-1'>
-                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email </label>
-                                <input type="text" name='email' onChange={handleChange} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Email' />
+                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Second Url <span class="text-red-600">*</span></label>
+                                <input type="text" name='secondUrl' value={formData.secondUrl} onChange={handleChange} id="phonenumber" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Second Url' required/>
                               </div>
-                              <div className='mt-1'>
-                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number <span class="text-red-600">*</span></label>
-                                <input type="text" name='phoneNumber' maxLength={10} onChange={handleChange} id="phonenumber" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Number' required/>
-                              </div>
-                              <div className='mt-1'>
-                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expacted Budget <span class="text-red-600">*</span></label>
-                                <input type="text" name='expactedBudget' onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Expacted Budget' required/>
-                              </div> 
                             <div className='grid justify-items-center mt-5'>
                               <button type="submit" className="text-white bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-2 text-center mr-3 md:mr-0">Submit</button>
                             </div>
@@ -127,5 +117,7 @@ export default function AddQuery({setOpen,open,getQueriesData}) {
       </div>
     </Dialog>
   </Transition.Root>
+  </>
   )
 }
+export default React.memo(UpdateUrl)

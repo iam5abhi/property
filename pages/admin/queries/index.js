@@ -3,31 +3,26 @@ import React,{useState,useEffect} from 'react'
 import PrivateRoute from '../../../PrivateRoute/PrivateRoute';
 import AddQuery from '../../../components/Admin/AddQuery/AddQuery';
 import axios from 'axios';
-// https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=${user.PhoneNumber}&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%20${otp}%20EDUTEK&route=1014&peid=1201159350821274881
-// api for message 
-
 
 const Index = () => {
     const router = useRouter();
     const [queries,setQueries]=useState([])
     const [open,setOpen]=useState(false)
+    const [urls,setUrls]=useState({firstUrl:'',secondUrl:''})
     
 
     const BroadcastHandler = async () => {
         const phoneNumbers = queries.map(data => data.phoneNumber);
-        
-        console.log(phoneNumbers,"phoneNumbers")
         const requestOptions = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         };
-    
         // Use Promise.all to send SMS messages to all phone numbers concurrently
         await Promise.all(
             phoneNumbers.map(phoneNumber => {
-                const url = `https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=${phoneNumber}&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%20${1218}%20EDUTEK&route=1014&peid=1201159350821274881`;
+                const url = `${urls.firstUrl}${phoneNumber}${urls.secondUrl}`;
     
                 return axios(url, requestOptions)
                     .then(res => res.json())
@@ -37,16 +32,6 @@ const Index = () => {
                     });
             })
         );
-        // const corsAnywhereProxy = 'https-://thingproxy.freeboard.io/';
-        // const apiUrl = 'https://sms.innuvissolutions.com/api/mt/SendSMS?APIKey=Try50kmHFUqu0MoBnX9Ojg&senderid=EDUTEK&channel=Trans&DCS=0&flashsms=0&number=9549726127&text=%20Dear%20Parent,Your%20OTP%20for%20App%20Login%20is%201018%20EDUTEK&route=1014&peid=1201159350821274881';
-        // const fullApiUrl = corsAnywhereProxy + apiUrl;
-        // axios(apiUrl, { 
-        //     method: "GET",
-        //     headers: {
-        //       "Content-Type": 'Access-Control-Allow-Headers',
-        //     },
-        //   }).then((res) => {return res.json()}
-        //   ).then((res) => setQueries(res))
     };
 
     const SearchHandler = async (event)=>{
@@ -76,8 +61,20 @@ const Index = () => {
           ).then((res) => setQueries(res))
     }
 
+    const getUrlData = () => {
+        fetch("/api/messageSendUrl/get-url", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((res) => { if (!res.ok) { throw new Error("Network response was not ok"); }
+            return res.json();
+          }).then((data) => { setUrls({ firstUrl:data[0].firstUrl, secondUrl:data[0].secondUrl, }); })
+            .catch((error) => {console.error("Error fetching or parsing data:", error)});
+      };
     useEffect(() => {
         getQueriesData();
+        getUrlData();
     }, [])
     return (
         <>
@@ -96,9 +93,6 @@ const Index = () => {
                         <table className="min-w-full m leading-normal ">
                             <thead>
                                 <tr>
-                                    <th className=" px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                       Sr
-                                    </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                        name
                                     </th>
@@ -107,9 +101,6 @@ const Index = () => {
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                         Property Name
-                                    </th>
-                                    <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                        Price
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                         Expacted Budget
@@ -125,9 +116,6 @@ const Index = () => {
                             <tbody>
                                 {!queries?"loading....":queries.map((data,index)=>{
                                     return <tr key={index+1}>
-                                    <td className="px-5 py-5 bg-white text-sm">
-                                         {index+1}. 
-                                    </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                         {data.name}  
                                     </td>
@@ -135,17 +123,14 @@ const Index = () => {
                                         {data.phoneNumber}
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                        {data.ProjectName}
-                                    </td>
-                                    <td className="text-center px-5 py-5 bg-white text-sm">
-                                        {data.budget}
+                                        {data.ProjectName}({data.requirement})({data.budget})
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                         {data.expactedBudget}
                                     </td>  
-                                    <td className="text-center px-5 py-5 bg-white text-sm">
-                                        <span className="mr-3 cursor-pointer relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                            <span aria-hidden className="absolute inset-0 bg-green-200 opacity-50 rounded-full" />
+                                    <td className="text-center px-5 py-5 bg-white text-sm">                                                                                                                                            
+                                        <span className={`mr-3 cursor-pointer relative inline-block px-3 py-1 font-semibold ${data.status=="newlead"?"text-green-900":data.status=="inprogress"?"text-yellow-900":data.status=="converted"?"text-purple-900":data.status=="onhold"?"text-blue-900":"text-red-900"} leading-tight`}>
+                                            <span aria-hidden className={`absolute inset-0 opacity-50 rounded-full ${data.status=="newlead"?"bg-green-200":data.status=="inprogress"?"bg-yellow-200":data.status=="converted"?"bg-purple-200":data.status=="onhold"?"bg-blue-200":"bg-red-200"}`} />
                                             <span className="relative">{data.status}</span>
                                         </span>
                                     </td>  

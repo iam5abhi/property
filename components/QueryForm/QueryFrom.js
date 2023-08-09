@@ -39,7 +39,7 @@ export default function QueryFrom({setOpen,open,id}) {
     }).then((res) => { if (!res.ok) { throw new Error("Network response was not ok"); }
         return res.json(); // Parse the JSON data
       })
-      .then((data) => { setFormData({ProjectID:data.ProjectID, budget:data.PriceStartsfrom, ProjectName:data.ProjectName}); })
+      .then((data) => { setFormData({ProjectID:data.ProjectID, budget:data.PriceStartsfrom, ProjectName:data.ProjectName, requirement:data.requirement}); })
       .catch((error) => {console.error("Error fetching or parsing data:", error);});
   };
 
