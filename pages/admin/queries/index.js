@@ -2,37 +2,13 @@ import { useRouter } from 'next/router';
 import React,{useState,useEffect} from 'react'
 import PrivateRoute from '../../../PrivateRoute/PrivateRoute';
 import AddQuery from '../../../components/Admin/AddQuery/AddQuery';
-import axios from 'axios';
+import Broadcast from '../../../components/Admin/AddQuery/Broadcast';
 
 const Index = () => {
     const router = useRouter();
     const [queries,setQueries]=useState([])
     const [open,setOpen]=useState(false)
-    const [urls,setUrls]=useState({firstUrl:'',secondUrl:''})
-    
-
-    const BroadcastHandler = async () => {
-        const phoneNumbers = queries.map(data => data.phoneNumber);
-        const requestOptions = {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        };
-        // Use Promise.all to send SMS messages to all phone numbers concurrently
-        await Promise.all(
-            phoneNumbers.map(phoneNumber => {
-                const url = `${urls.firstUrl}${phoneNumber}${urls.secondUrl}`;
-    
-                return axios(url, requestOptions)
-                    .then(res => res.json())
-                    .catch(error => {
-                        console.error(`Error sending SMS to ${phoneNumber}:`, error);
-                        // Handle error as needed
-                    });
-            })
-        );
-    };
+    const [broadcastOpen,setBroadcastOpen]=useState(false)
 
     const SearchHandler = async (event)=>{
         const query = event.target.value.toLowerCase();
@@ -46,7 +22,6 @@ const Index = () => {
 
                 return projectNameMatch || phoneNumberMatch || statusMatch;
             });
-            console.log(filteredList, "filteredList");
             setQueries(filteredList);
         }
     }
@@ -61,20 +36,8 @@ const Index = () => {
           ).then((res) => setQueries(res))
     }
 
-    const getUrlData = () => {
-        fetch("/api/messageSendUrl/get-url", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }).then((res) => { if (!res.ok) { throw new Error("Network response was not ok"); }
-            return res.json();
-          }).then((data) => { setUrls({ firstUrl:data[0].firstUrl, secondUrl:data[0].secondUrl, }); })
-            .catch((error) => {console.error("Error fetching or parsing data:", error)});
-      };
     useEffect(() => {
         getQueriesData();
-        getUrlData();
     }, [])
     return (
         <>
@@ -85,7 +48,7 @@ const Index = () => {
                     <div className='flex gap-2'>
                         <input type="text" name='email' onChange={SearchHandler} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1" placeholder='Search' />
                         <h2 onClick={()=>setOpen(true)} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Add Queries</h2>
-                        <h2 onClick={BroadcastHandler} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Broadcast</h2>
+                        <h2 onClick={()=>setBroadcastOpen(true)} className="cursor-pointer text-lg font-semibold  leading-tight bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l shadow-md text-white rounded-full shadow px-5 py-1">Broadcast</h2>
                     </div>
                 </div>
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -149,6 +112,7 @@ const Index = () => {
             </div>
         </div>
         <AddQuery setOpen={setOpen} open={open} getQueriesData={getQueriesData} />
+        {!broadcastOpen?null:<Broadcast queries={queries} setOpen={setBroadcastOpen} open={broadcastOpen} getQueriesData={getQueriesData} />}
         </>
     )
 }

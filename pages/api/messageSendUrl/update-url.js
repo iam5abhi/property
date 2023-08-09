@@ -5,10 +5,9 @@ const xata = getXataClient();
 
 const handler = async (req, res) => {
 
-  const { id, firstUrl, secondUrl } = req.body;
-  const results = await xata.db.QueryForm.createOrUpdate(id,{
+  const { id, firstUrl } = req.body;
+  const results = await xata.db.QueryForm.firstUrl(id,{
     firstUrl,
-    secondUrl,
   });
   res.send(results);
 };

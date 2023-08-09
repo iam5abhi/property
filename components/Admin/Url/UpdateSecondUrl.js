@@ -3,9 +3,9 @@ import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 
-function UpdateUrl({setOpen,open,getQueriesData,id}) {
+function UpdateSecondUrl({setOpen,open,getQueriesData,id}) {
   const cancelButtonRef = useRef(null)
-  const [formData,setFormData]=useState({firstUrl:''})
+  const [formData,setFormData]=useState({name:"", secondUrl:''})
 
   const handleChange =(event)=>{
     setFormData((pre)=>({
@@ -29,14 +29,15 @@ function UpdateUrl({setOpen,open,getQueriesData,id}) {
   }
 
   const getData = () => {
-    fetch("/api/messageSendUrl/get-url", {
+    fetch("/api/messageSendUrl/get-single-second", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+    body: JSON.stringify({id:id}),
     }).then((res) => { if (!res.ok) { throw new Error("Network response was not ok"); }
         return res.json();
-      }).then((data) => { setFormData({ firstUrl:data[0].firstUrl }); })
+      }).then((data) => { setFormData({ secondUrl:data.secondUrl,name:data.name }); })
         .catch((error) => {console.error("Error fetching or parsing data:", error)});
   };
 
@@ -86,8 +87,12 @@ function UpdateUrl({setOpen,open,getQueriesData,id}) {
                       <div className="relative flex flex-col flex-auto min-w-0 mt-2 p-4 break-words border-0 shadow-blur rounded-2xl bg-white/80 bg-clip-border mb-4 draggable " draggable="true">
                         <form onSubmit={handleSubmit}>
                           <div className='mt-1'>
-                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Url <span class="text-red-600">*</span></label>
-                            <input type="text" name='firstUrl' value={formData.firstUrl} onChange={handleChange} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter First Url' required/>
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name <span class="text-red-600">*</span></label>
+                            <input type="text" name='name' value={formData.name} onChange={handleChange} id="Name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Name' required/>
+                          </div>
+                          <div className='mt-1'>
+                            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Second Url <span class="text-red-600">*</span></label>
+                            <input type="text" name='secondUrl' value={formData.secondUrl} onChange={handleChange} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Second Url' required/>
                           </div>
                           <div className='grid justify-items-center mt-5'>
                             <button type="submit" className="text-white bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-2 text-center mr-3 md:mr-0">Submit</button>
@@ -109,4 +114,4 @@ function UpdateUrl({setOpen,open,getQueriesData,id}) {
   </>
   )
 }
-export default React.memo(UpdateUrl)
+export default React.memo(UpdateSecondUrl)
