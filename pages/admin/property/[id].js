@@ -1,19 +1,59 @@
 /* eslint-disable @next/next/no-sync-scripts */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import PrivateRoute from "../../../PrivateRoute/PrivateRoute";
 
 const UpdateContact = () => {
   const router = useRouter();
   const { id } = router.query;
+  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }),[]);
+  const [aboutProject,setAboutProject]=useState()
+  const [basicAmenities,setBasicAmenities]=useState([])
+  const [projectPhotos,setProjectPhotos]=useState([])
   const [formData, setFormData] = useState({
-    title:'', 
-    phoneNumber:'', 
-    ask_price:'', 
-    type:'', 
-    link:'',
-    requirement:''
+    ProjectName:'', //done
+    Sector:'', //done
+    ProjectBrochure:'', //done
+    PriceStartsfrom:'', //done
+    PricePerSQFT:'', //done
+    Nooffloors:'', //done
+    AvailableFrom:'', //done
+    requirement:'', //done
+    type:'', //done
   });
+
+  const BasicAmenitiesHandler =(event)=>{
+    if (basicAmenities.includes(event.target.value)) {
+      const indexOfAmenity = basicAmenities.indexOf(event.target.value);
+      const updatedAmenities = [...basicAmenities];
+      updatedAmenities.splice(indexOfAmenity, 1);
+      setBasicAmenities(updatedAmenities);
+    } else {
+      setBasicAmenities([...basicAmenities, event.target.value]);
+    }
+  } 
+
+  const openupWidget = (collmnName) => {
+    cloudinary.createUploadWidget(
+      {
+        cloud_name: "fatimaola",
+        upload_preset: "ufa6exrd",
+        multiple: true, // Allow multiple image uploads
+      },
+      (error, results) => {
+        if (!error && results && results.event === "success") {
+          // Assuming results.info contains the uploaded image information
+          const imageUrl = results.info.url;
+          // Update projectPhotos with the new image URL
+          if(collmnName=="ProjectBrochure"){
+            setFormData({...formData,[collmnName]:imageUrl});
+          }else{ setProjectPhotos((prevPhotos) => [...prevPhotos, imageUrl]); }
+        }
+      }
+    ).open();
+  };
 
   const onChangeHandler = (event) => {
     setFormData((prevData) => ({
@@ -29,8 +69,8 @@ const UpdateContact = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
-    }).then(() => router.push("/admin/property"));
+      body: JSON.stringify({...formData,projectPhotos:projectPhotos,Amenities:basicAmenities,AboutProject:aboutProject}),
+    }).then(() => router.push("/admin")); 
   };
 
   const getContactData = () => {
@@ -51,13 +91,19 @@ const UpdateContact = () => {
       .then((data) => {
         // Data is the parsed JSON object
         setFormData({
-          title: data.title,
-          ask_price: data.ask_price,
-          type: data.type,
-          link: data.link,
-          phoneNumber: data.phoneNumber,
-          requirement:data.requirement
+          ProjectName:data.ProjectName, //done
+          Sector:data.Sector, //done
+          ProjectBrochure:data.ProjectBrochure, //done
+          PriceStartsfrom:data.PriceStartsfrom, //done
+          PricePerSQFT:data.PricePerSQFT, //done
+          Nooffloors:data.Nooffloors, //done
+          AvailableFrom:data.AvailableFrom, //done
+          requirement:data.requirement, //done
+          type:data.type, //done
         });
+        setProjectPhotos(data.projectPhotos)
+        setBasicAmenities(data.Amenities),
+        setAboutProject(data.AboutProject)
       })
       .catch((error) => {
         // Handle any errors that occurred during the fetch or JSON parsing
@@ -72,34 +118,69 @@ const UpdateContact = () => {
 
   return (
     <>
+      <Head>
+          <script
+          src='https://upload-widget.cloudinary.com/global/all.js'
+          type='text/javascript'
+          />
+      </Head>
       <div className="max-w-screen mx-auto">
-        <div className="container mx-auto py-10">
+        <div className="container mx-auto">
           <div className="p-4">
-            <div className="w-full mx-auto md:w-[35%]">
-            <form
+            <div className="w-full mx-auto md:w-[100%]">
+              <form
                 onSubmit={handleSubmit}
-                className="bg-white shadow-xl py-14 rounded-lg p-5"
+                className="bg-white shadow-xl py-8 rounded-lg p-5"
               >
                 <h1 className="font-bold text-3xl mb-8 text-center">
-                  Property Update
+                  Property Add
                 </h1>
                 <input type="hidden" name="remember" defaultValue="true" />
-                <div className="mt-8 space-y-4 ">
+                <div className="mt-8 gap-x-4 grid grid-cols-3">
                   <div className="mb-4">
-                    <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Title</label>
-                    <input type="text" id="name" name='title' value={formData.title} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Title" required />
+                    <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Project Name</label>
+                    <input type="text" id="name" name='ProjectName' value={formData.ProjectName} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Project Name" required />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">Phone</label>
-                    <input type="text" id="number" name="phoneNumber" value={formData.phoneNumber} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Phone" required />
+                    <label htmlfor="name" className="block mb-2 text-sm font-medium text-gray-900 ">Sector</label>
+                    <input type="text" id="name" name='Sector' value={formData.Sector} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Sector" required />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="ask_price" className="block mb-2 text-sm font-medium text-gray-900 ">Ask Price</label>
-                    <input type="text" id="number" name='ask_price' value={formData.ask_price} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Ask Price" required />
+                    <label htmlfor="phone" className="block mb-2 text-sm font-medium text-gray-900 ">Price Start from</label>
+                    <input type="text" id="number" name="PriceStartsfrom" value={formData.PriceStartsfrom} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Price Start from" required />
                   </div>
                   <div className="mb-4">
-                    <label htmlfor="link" className="block mb-2 text-sm font-medium text-gray-900 ">Link</label>
-                    <input type="link" id="ask_price"  name='link' value={formData.link} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Link" required />
+                    <label htmlfor="Nooffloors" className="block mb-2 text-sm font-medium text-gray-900 ">No Of Floors</label>
+                    <input type="text" id="number" name='Nooffloors' value={formData.Nooffloors} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="No Of Floors" required />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlfor="PricePerSQFT" className="block mb-2 text-sm font-medium text-gray-900 ">Price Per SQFT?</label>
+                    <input type="text" id="number" name='PricePerSQFT' value={formData.PricePerSQFT} onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="No Of Floors" required />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      htmlFor="category"
+                      className="block mb-2 text-sm font-medium text-gray-900"
+                    >
+                      Select an option
+                    </label>
+                    <select
+                      id="AvailableFrom"
+                      name="AvailableFrom"
+                      value={formData.AvailableFrom}
+                      onChange={onChangeHandler}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      required
+                    >
+                      <option value="">Choose</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                      <option value="2029">2029</option>
+                      <option value="2030">2030</option>
+                    </select>
                   </div>
                   <div className="mb-4 flex gap-5">
                     <div className="flex gap-1">
@@ -108,24 +189,88 @@ const UpdateContact = () => {
                     </div>
                     <div className="flex gap-1">
                         <input type="radio" id="name" name='type' checked={formData.type=="commercial"} value="commercial" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
-                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">commercial</label>
+                        <label htmlfor="specialization" value={formData.specialization} className="block text-sm font-medium text-gray-900 ">commercial</label>
                     </div>
                   </div>
+                  
                   <div className="mb-4 flex gap-5">
                     <div className="flex gap-1">
-                        <input type="radio" id="name" checked={formData.requirement=='buy'} name='requirement' value="buy" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
-                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Buy</label>
-                    </div>
-                    <div className="flex gap-1">
-                        <input type="radio" id="name" checked={formData.requirement=='sell'} name='requirement' value="sell" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="radio" id="name" name='requirement' checked={formData.requirement=="buy"} value="buy" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Sell</label>
                     </div>
                     <div className="flex gap-1">
-                        <input type="radio" id="name" checked={formData.requirement=='lease'} name='requirement' value="lease" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
+                        <input type="radio" id="name" name='requirement' checked={formData.requirement=="lease"} value="lease" onChange={onChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " required />
                         <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Lease</label>
                     </div>
                   </div>
-                  <div className="text-center mb-6">
+                  <div className='mb-5'>
+                      <span className="font-bold">ProjectPhotos &nbsp; &nbsp;&nbsp;</span>
+                      <button
+                      className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                      type='button'
+                      onClick={()=>openupWidget("ProjectPhotos")}
+                      >
+                      Upload Image
+                      </button>
+                  </div>
+                  <div className='mb-5'>
+                      <span className="font-bold">ProjectBrochure &nbsp;</span>
+                      <button
+                      className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                      type='button'
+                      onClick={()=>openupWidget("ProjectBrochure")}
+                      >
+                     Pdf Upload
+                      </button>
+                  </div>
+                </div>
+                  <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">BasicAmenities</label>
+                  <div className="mb-4 grid grid-cols-3">
+                    <div className="flex gap-1">
+                        <input type="checkbox" id="name" name='requirement' checked={basicAmenities.includes('Swimming Pool')} value="Swimming Pool" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Swimming Pool</label>
+                    </div>
+                    <div className="flex gap-1">
+                        <input type="checkbox" id="name" name='requirement' checked={basicAmenities.includes('RainWater Harvesting')} value="RainWater Harvesting" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Rain Water Harvesting</label>
+                    </div>
+                    <div className="flex gap-1">
+                        <input type="checkbox" id="name" name='requirement' checked={basicAmenities.includes('24x7 Security')} value="24x7 Security" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">24x7 Security</label>
+                    </div>
+                    <div className="flex gap-1">
+                        <input type="checkbox" id="name" name='requirement' checked={basicAmenities.includes('Club House')} value="Club House" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Club House</label>
+                    </div>
+                    <div className="flex gap-1">
+                        <input type="checkbox" id="name" name='requirement' checked={basicAmenities.includes('24/7 Water Supply')} value="24/7 Water Supply" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">24/7 Water Supply</label>
+                    </div>
+                    <div className="flex gap-1">
+                        <input type="checkbox" id="name" name='requirement' checked={basicAmenities.includes('Lift(s)')} value="Lift(s)" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Lift(s)</label>
+                    </div> 
+                    <div className="flex gap-1">
+                        <input type="checkbox" id="name" name='requirement' checked={basicAmenities.includes('Car Parking')} value="Car Parking" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Car Parking</label>
+                    </div> 
+                    <div className="flex gap-1">
+                        <input type="checkbox" id="name" name='requirement' checked={basicAmenities.includes('Internal Street Lights')} value="Internal Street Lights" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Internal Street Lights</label>
+                    </div> 
+                    <div className="flex gap-1">
+                        <input type="checkbox" id="name" name='requirement' checked={basicAmenities.includes('Fire Fighting Systems')} value="Fire Fighting Systems" onChange={BasicAmenitiesHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 " />
+                        <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">Fire Fighting Systems</label>
+                    </div> 
+                  </div> 
+                  <div className="mb-6">
+                    <label htmlFor="message" className="block mb-2 text-xl font-medium text-gray-900">Project Description
+                    </label>
+                    {!ReactQuill?null:
+                    <ReactQuill theme="snow" value={aboutProject} onChange={setAboutProject} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-orange-500 focus:border-orange-500 " placeholder="Write your project description here..."/>      
+                    }
+                  </div>
+                  <div className="text-center">
                     <button
                       type="submit"
                       className="rounded-full cursor-pointer flex w-[30%] mx-auto justify-center 
@@ -134,7 +279,6 @@ const UpdateContact = () => {
                     >
                       Submit
                     </button>
-                  </div>
                 </div>
               </form>
             </div>
