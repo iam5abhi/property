@@ -83,9 +83,9 @@ const SinglePropert = () => {
                         <div className='flex justify-around'>
                             {contact.Amenities.map((data,id)=>{
                                 return <a href="#" className="pb-6">{
-                                data.includes("Swimming Pool")?<i className="fa-solid fa-person-swimming fa-lg text-blue-400"></i>
-                                :data.includes("Internal Street Lights")?<i className="fa-solid fa-traffic-light fa-lg text-blue-400"></i>
-                                :data.includes("24x7 Security")?<i className="fa-solid fa-person-rifle fa-lg text-blue-400"></i>
+                                data.includes("Swimming Pool")?<i className="fa-solid fa-person-swimming fa-2xl text-blue-400"></i>
+                                :data.includes("Internal Street Lights")?<i className="fa-solid fa-traffic-light fa-2xl text-blue-400"></i>
+                                :data.includes("24x7 Security")?<i className="fa-solid fa-person-rifle fa-2xl text-blue-400"></i>
                                 :null} {data}</a>
                             })}
                         </div>
