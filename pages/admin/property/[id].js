@@ -24,6 +24,7 @@ const UpdateContact = () => {
     type:'', //done
   });
 
+  console.log(projectPhotos,"projectPhotos")
   const BasicAmenitiesHandler =(event)=>{
     if (basicAmenities.includes(event.target.value)) {
       const indexOfAmenity = basicAmenities.indexOf(event.target.value);
@@ -110,6 +111,11 @@ const UpdateContact = () => {
         console.error("Error fetching or parsing data:", error);
         // You can set the category state to a default value or handle the error in another way
       });
+  };
+
+  const removeImage = (index) => {
+    const updatedPhotos = projectPhotos.filter((_, i) => i !== index);
+    setProjectPhotos(updatedPhotos);
   };
 
   useEffect(() => {
@@ -212,8 +218,22 @@ const UpdateContact = () => {
                       >
                       Upload Image
                       </button>
+                      <div className={`grid grid-cols-${projectPhotos.length} gap-2 group mt-1`}>
+                        {projectPhotos.map((photo, index) => (
+                            <div className="relative" key={index} style={{ display: "inline-block" }}>
+                            <img src={photo} className="h-14 rounded-md" alt="Uploaded 2" />
+                            <div className="absolute top-0 right-0 flex items-center justify-center group-hover:opacity-100 opacity-0 group-hover:opacity-100">
+                              <button type="button" onClick={()=> removeImage(index)}>
+                                <i className="fa-regular fa-circle-xmark text-white bg-gray-400 rounded-full"></i>
+                              </button>
+                            </div>
+                          </div>
+                          
+                        ))}
+                      </div>
                   </div>
-                  <div className='mb-5'>
+                  <div className='mb-5 flex gap-2'>
+                      <div>
                       <span className="font-bold">ProjectBrochure &nbsp;</span>
                       <button
                       className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
@@ -222,6 +242,15 @@ const UpdateContact = () => {
                       >
                      Pdf Upload
                       </button>
+                      </div>
+                      <div className={`${formData.ProjectBrochure.trim()==""?'hidden':'block'} relative group`} style={{ display: "inline-block" }}>
+                      <iframe src={formData.ProjectBrochure} className="h-14 rounded-md"></iframe>
+                      <div className="absolute top-0 right-5 flex items-center justify-center group-hover:opacity-100 opacity-0 group-hover:opacity-100">
+                        <button type="button" onClick={()=> setFormData({...formData,ProjectBrochure:""})}>
+                          <i className="fa-regular fa-circle-xmark"></i>
+                        </button>
+                      </div>
+                      </div>
                   </div>
                 </div>
                   <label htmlfor="specialization" className="block text-sm font-medium text-gray-900 ">BasicAmenities</label>

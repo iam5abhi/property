@@ -56,23 +56,23 @@ const Index = () => {
                 </div>
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                     <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-                        <table className="min-w-full m leading-normal ">
+                        <table className="min-w-full leading-normal ">
                             <thead>
                                 <tr>
-                                    <th className=" px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                       Sr
-                                    </th>
-                                    <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                    <th className="text-left px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                        name
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                        Nooffloors
+                                        location
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                        Price Starts from
+                                        Price
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                                      Link
+                                        Price Scure feet
+                                    </th>
+                                    <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                        duration
                                     </th>
                                     <th className="text-center px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                     Actions
@@ -83,20 +83,19 @@ const Index = () => {
                                 {!contact?"loading....":contact.map((data,index)=>{
                                     return <tr key={index+1}>
                                     <td className="px-5 py-5 bg-white text-sm">
-                                         {index+1}. 
-                                    </td>
-                                    <td className="text-center px-5 py-5 bg-white text-sm">
                                         {data.ProjectName}  
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                    {data.Nooffloors}
+                                        {data.Sector}  
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                         {data.PriceStartsfrom}
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                    <a className='text-blue-500' href={data.ProjectBrochure} >
-                                    link</a>
+                                        {data.PricePerSQFT}
+                                    </td>
+                                    <td className="text-center px-5 py-5 bg-white text-sm">
+                                        {data.AvailableFrom}
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                         <span onClick={()=>router.push(`/admin/property/${data.id}`)} className="mr-3 relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
