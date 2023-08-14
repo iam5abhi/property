@@ -7,22 +7,32 @@ const SinglePropert = () => {
     const {id} = router.query
     const [contact, setContact] = useState()
 
-    console.log(contact,"contact")
-    const getCategotyData = () => {
+    const getContactData = () => {
         fetch("/api/property/get-singleproperty", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id:id }),
-        }).then((res) => {if (!res.ok) {throw new Error("Network response was not ok")}
-            return res.json();
-          }).then((res) => setContact(res))
-    }
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: id }),
+        })
+          .then((res) => {
+            // Check if the response status is okay (2xx status code)
+            if (!res.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return res.json(); // Parse the JSON data
+          })
+          .then((data) => {setContact(data)})
+          .catch((error) => {
+            // Handle any errors that occurred during the fetch or JSON parsing
+            console.error("Error fetching or parsing data:", error);
+            // You can set the category state to a default value or handle the error in another way
+          });
+      };
 
     useEffect(() => {
-        getCategotyData();
-    }, [])
+        getContactData();
+    }, [id])
 
     if(!contact){
         return false;
@@ -69,27 +79,13 @@ const SinglePropert = () => {
                         <a href="#" className="text-3xl text-gray-800 font-bold  pb-4">Amenties</a>
                         <div className='flex justify-around'>
                             {contact.Amenities.map((data,id)=>{
-                                return <a href="#" className="pb-6">{id+1}. {
+                                return <a href="#" className="pb-6">{
                                 data.includes("Swimming Pool")?<i className="fa-solid fa-person-swimming fa-lg text-blue-400"></i>
                                 :data.includes("Internal Street Lights")?<i className="fa-solid fa-traffic-light fa-lg text-blue-400"></i>
                                 :data.includes("24x7 Security")?<i className="fa-solid fa-person-rifle fa-lg text-blue-400"></i>
                                 :null} {data}</a>
                             })}
                         </div>
-                    </div>
-                </article>
-                <article className="flex flex-col shadow my-4">
-                    <div className="bg-white flex flex-col justify-start p-6">
-                        <a href="#" className="text-3xl text-gray-800 font-bold  pb-4">About Developers</a>
-                        <a href="#" className="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu
-                            iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna..</a>
-                    </div>
-                </article>
-                <article className="flex flex-col shadow my-4">
-                    <div className="bg-white flex flex-col justify-start p-6">
-                        <a href="#" className="text-3xl text-gray-800 font-bold  pb-4">Top Advertisers</a>
-                        <a href="#" className="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu
-                            iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna..</a>
                     </div>
                 </article>
             </section>
