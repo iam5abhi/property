@@ -80,9 +80,9 @@ const SinglePropert = () => {
                 <article className="flex flex-col shadow my-4">
                     <div className="bg-white flex flex-col justify-start p-6">
                         <a href="#" className="text-3xl text-gray-800 font-bold  pb-4">Amenties</a>
-                        <div className='flex justify-around'>
+                        <div className='grid grid-cols-2 md:grid-cols-3 '>
                             {contact.Amenities.map((data,id)=>{
-                                return <a href="#" className="pb-6">{
+                                return <a href="#" className="pb-6 text-center">{
                                 data.includes("Swimming Pool")?<i className="fa-solid fa-person-swimming fa-2xl text-blue-400"></i>
                                 :data.includes("Internal Street Lights")?<i className="fa-solid fa-traffic-light fa-2xl text-blue-400"></i>
                                 :data.includes("24x7 Security")?<i className="fa-solid fa-person-rifle fa-2xl text-blue-400"></i>
