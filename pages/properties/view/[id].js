@@ -53,7 +53,10 @@ const SinglePropert = () => {
                         <p href="#" className="text-sm pb-3">
                             <a href="#" className="font-normal text-gray-500 "><i className="fa-solid fa-location-dot" />&nbsp;{contact.Sector}</a>
                         </p>
-                        <a href="#" className="pb-6"></a>
+                        <p href="#" className="text-sm pb-3">                            
+                        <a href="#" className="font-normal text-gray-500 ">{contact.PricePerSQFT}</a>
+                        </p>
+                       
                     </div>
                 </article>
                 <article className="flex flex-col shadow my-4">
