@@ -61,7 +61,7 @@ const index = () => {
                 </figure>
             </div>
             {data.map((data)=>{
-                return <div className="grid grid-cols-6 md:grid-cols-8 sm:grid-cols-2 gap-8 px-4 ">
+                return <div key={data.id} className="grid grid-cols-6 md:grid-cols-8 sm:grid-cols-2 gap-8 px-4 ">
                 <div className="col-span-1" />
                 <article className="col-span-6 my-4 px-2">
                     <div className="w-full bg-white border border-gray-200 rounded-lg shadow ">
