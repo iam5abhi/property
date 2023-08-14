@@ -86,7 +86,7 @@ const SinglePropert = () => {
                                 data.includes("Swimming Pool")?<i className="fa-solid fa-person-swimming fa-2xl text-blue-400"></i>
                                 :data.includes("Internal Street Lights")?<i className="fa-solid fa-traffic-light fa-2xl text-blue-400"></i>
                                 :data.includes("24x7 Security")?<i className="fa-solid fa-person-rifle fa-2xl text-blue-400"></i>
-                                :null} <span className='text-sm md:text-lg'>{data}</span> </a>
+                                :null} <span className='text-xs md:text-lg'>{data}</span> </a>
                             })}
                         </div>
                     </div>
