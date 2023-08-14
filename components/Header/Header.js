@@ -24,9 +24,9 @@ const Header = () => {
         <>
         <nav className="bg-white border-gray-200 shadow">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href className="flex items-center">
+                <Link href="/" className="flex items-center">
                     <span className="self-center font-semibold whitespace-nowrap "><img src={data} className='h-8' /></span>
-                </a>
+                </Link>
                 {!user ? null :
                     <div className="flex md:order-2">
                         <button type="button" onClick={() => logout()} className="text-white bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-6 py-2 text-center mr-3 md:mr-0">Logout</button>

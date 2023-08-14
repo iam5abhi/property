@@ -119,7 +119,7 @@ const viewPropert = () => {
                             <div className="rounded mb-4">
                                 <h1 className="font-bold text-3xl mb-8 text-center">Property</h1>
                                 {!contact ? "loading....." : contact.map((data) => {
-                                    return <div onClick={()=>router.push(`/properties/view/${data.id}`)} className="grid gap-6 mb-6 grid-cols-1 md:grid-cols-1">
+                                    return <div onClick={()=>router.push(`/properties/view/[...${data.id}]`)} className="grid gap-6 mb-6 grid-cols-1 md:grid-cols-1">
                                     <div className="grid1">
                                         <div className="relative w-full md:w-[65%] bg-gradient-to-r from-[#4216AA] to-[#F8AF0B] hover:bg-gradient-to-l mx-auto border rounded-lg shadow-md">
                                             <div className="md:p-5 p-2">

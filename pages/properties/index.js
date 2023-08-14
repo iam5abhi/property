@@ -22,7 +22,6 @@ const index = () => {
                         <div className="px-4">
                         <h2 className='text-2xl font-bold text-center py-8 md:text-4xl md:py-16'>Do you want to:  </h2>
                             <div className="rounded mb-4 ml-0 md:ml-[200px]">
-                          
                                 <div className="grid gap-2 md:gap-0  grid-cols-2 md:grid-cols-2">
                                     <div className="grid1">
                                         <div className="max-w-sm rounded-full bg-[#F8AF0B] shadow-md">
@@ -36,9 +35,6 @@ const index = () => {
                                     <div>
                                         <div className="grid2">
                                             <div className="max-w-sm rounded-full bg-[#4216aa] shadow-md">
-                                                {/* <a href="#">
-                            <img class="rounded-t-lg" src="assets/img/1942.jpg" alt="">
-                        </a> */}
                                                 <div className="md:p-5 p-3">
                                                     <a href="#">
                                                         <h5 onClick={() => router.push('/properties/lease')} className="text-center text-white text-xl md:text-3xl font-semibold tracking-tight uppercase">Lease</h5>
