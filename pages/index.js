@@ -56,7 +56,7 @@ const index = () => {
                     </figure>
                 <figure className="flex flex-col items-center justify-center p-4 text-center   border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-tl-lg">
                     <figcaption className="flex items-center justify-center">
-                        <img className="h-auto max-w-full" src="/Images/1png.png" alt="profile picture" />
+                        {/* <img className="h-auto max-w-full" src="/Images/1png.png" alt="profile picture" /> */}
                     </figcaption>
                 </figure>
             </div>
