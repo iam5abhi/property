@@ -19,7 +19,7 @@ const index = () => {
 
     return (
         <>
-        {/* <div>
+        <div>
             <div className="grid mb-8 border border-gray-200 rounded-lg shadow-sm md:mb-12 md:grid-cols-2 bg-white">
                 <figure className="flex flex-col items-center justify-center p-4  border-b border-gray-200 rounded-tr-lg ">
                     <blockquote className="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8">
@@ -97,7 +97,7 @@ const index = () => {
                 </article>
             </div>
             })}
-        </div> */}
+        </div>
         </>
     )
 }
