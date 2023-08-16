@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
 const index = () => {
+    const router = useRouter();
     const [data, setData] = useState([])
 
     const getData = () => {
@@ -34,7 +36,7 @@ const index = () => {
                         <div className="grid1">
                             <div className="md:px-14 rounded-full bg-[#F8AF0B] shadow-md">
                                 <div className="md:p-5 p-3">
-                                    <a href="#">
+                                    <a>
                                         <h5 onClick={() => router.push('/properties/buy')} className="text-center text-white text-xl md:text-3xl font-semibold tracking-tight uppercase">Buy</h5>
                                     </a>
                                 </div>
