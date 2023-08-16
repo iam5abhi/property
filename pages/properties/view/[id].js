@@ -1,46 +1,46 @@
-// import { useRouter } from 'next/router';
-// import React, { useEffect, useState } from 'react';
-// import Carousel from '../../../components/carousel/Carousel';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import Carousel from '../../../components/carousel/Carousel';
 
 const SinglePropert = () => {
-//     const router = useRouter()
-//     const {id} = router.query
-//     const [contact, setContact] = useState()
+    const router = useRouter()
+    const {id} = router.query
+    const [contact, setContact] = useState()
 
-//     const getContactData = () => {
-//         fetch("/api/property/get-singleproperty", {
-//           method: "POST",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify({ id: id }),
-//         })
-//           .then((res) => {
-//             // Check if the response status is okay (2xx status code)
-//             if (!res.ok) {
-//               throw new Error("Network response was not ok");
-//             }
-//             return res.json(); // Parse the JSON data
-//           })
-//           .then((data) => {setContact(data)})
-//           .catch((error) => {
-//             // Handle any errors that occurred during the fetch or JSON parsing
-//             console.error("Error fetching or parsing data:", error);
-//             // You can set the category state to a default value or handle the error in another way
-//           });
-//       };
+    const getContactData = () => {
+        fetch("/api/property/get-singleproperty", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: id }),
+        })
+          .then((res) => {
+            // Check if the response status is okay (2xx status code)
+            if (!res.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return res.json(); // Parse the JSON data
+          })
+          .then((data) => {setContact(data)})
+          .catch((error) => {
+            // Handle any errors that occurred during the fetch or JSON parsing
+            console.error("Error fetching or parsing data:", error);
+            // You can set the category state to a default value or handle the error in another way
+          });
+      };
 
-//     useEffect(() => {
-//         getContactData();
-//     }, [id])
+    useEffect(() => {
+        getContactData();
+    }, [id])
 
-//     if(!contact){
-//         return false;
-//     }
+    if(!contact){
+        return false;
+    }
 
     return (
         <>
-         {/* <div className="container mx-auto flex flex-wrap py-6">
+         <div className="container mx-auto flex flex-wrap py-6">
              <section className="w-full items-center px-3">
                  <article className="flex flex-col shadow my-4">
                      <div className="flex flex-col items-center py-2">
@@ -92,8 +92,7 @@ const SinglePropert = () => {
                     </div>
                 </article>
             </section>
-        </div> */}
-
+        </div>
         </>
     )
 }
