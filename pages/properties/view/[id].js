@@ -32,7 +32,7 @@ const SinglePropert = () => {
 
     useEffect(() => {
         getContactData();
-    }, [id])
+    }, [])
 
     if(!contact){
         return false;
