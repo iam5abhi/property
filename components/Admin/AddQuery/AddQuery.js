@@ -29,7 +29,7 @@ export default function AddQuery({setOpen,open,getQueriesData}) {
         getQueriesData() 
         setOpen(false)
       })
-  }
+  } //sandeep  
 
   const getProjectData = ()=>{
     fetch("/api/property/get-property", { 
