@@ -20,18 +20,18 @@ const Index = () => {
         });
     }; 
     
-    const statsContacts = (data,status) => {
-        fetch("/api/property/status-property", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ data: data , status: status }),
-        }).then(() => {
-            getCategotyData()
-            alert("delete Succfully")
-        });
-    };
+    // const statsContacts = (data,status) => {
+    //     fetch("/api/property/status-property", {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({ data: data , status: status }),
+    //     }).then(() => {
+    //         getCategotyData()
+    //         alert("delete Succfully")
+    //     });
+    // };
 
     const getCategotyData = ()=>{
         fetch("/api/property/get-property", { 

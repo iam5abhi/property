@@ -3,7 +3,6 @@ const xata = getXataClient();
 
 const handler = async (req, res) => {
   const { data,status } = req.body;
-  console.log(req.body)
   const record = await xata.db.property.update(data.id,{
     link:data.link,
     phoneNumber:data.phoneNumber,
