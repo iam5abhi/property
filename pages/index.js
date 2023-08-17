@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
-const Index = () => {
+const Reset = () => {
     const router = useRouter();
     const [data, setData] = useState([])
 
@@ -104,4 +104,4 @@ const Index = () => {
     )
 }
 
-export default Index
+export default Reset

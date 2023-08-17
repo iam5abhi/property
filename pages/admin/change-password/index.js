@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { UpdatePassword } from '../../../components/firebase'
 import PrivateRoute from '../../../PrivateRoute/PrivateRoute'
 
-const Index = () => {
+const ChangePassword = () => {
     const [password, setPassword] = useState()
 
     const ChangePassword = (event) =>{
@@ -38,4 +38,4 @@ const Index = () => {
     )
 }
 
-export default PrivateRoute(Index)
+export default PrivateRoute(ChangePassword)

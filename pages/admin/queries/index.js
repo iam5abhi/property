@@ -4,7 +4,7 @@ import PrivateRoute from '../../../PrivateRoute/PrivateRoute';
 import AddQuery from '../../../components/Admin/AddQuery/AddQuery';
 import Broadcast from '../../../components/Admin/AddQuery/Broadcast';
 
-const Index = () => {
+const Queries = () => {
     const router = useRouter();
     const [queries,setQueries]=useState([])
     const [open,setOpen]=useState(false)
@@ -117,4 +117,4 @@ const Index = () => {
     )
 }
 
-export default PrivateRoute(Index)
+export default PrivateRoute(Queries)

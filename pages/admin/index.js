@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react'
 import PrivateRoute from '../../PrivateRoute/PrivateRoute';
 import Link from 'next/link';
 
-const Index = () => {
+const Url = () => {
     const router = useRouter();
     const [contact,setContact]=useState()
     
@@ -120,4 +120,4 @@ const Index = () => {
     )
 }
 
-export default PrivateRoute(Index)
+export default PrivateRoute(Url)

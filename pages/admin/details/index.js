@@ -3,7 +3,7 @@ import PrivateRoute from '../../../PrivateRoute/PrivateRoute';
 import AddDetails from '../../../components/Admin/Details/AddDetails';
 import UpdateDetails from '../../../components/Admin/Details/UpdateDetails';
 
-const Index = () => {
+const Details = () => {
     const [queries,setQueries]=useState()
     const [open,setOpen]=useState(false)
     const [updateOpen,setUpdateOpen]=useState(false)
@@ -100,4 +100,4 @@ const Index = () => {
     )
 }
 
-export default PrivateRoute(Index)
+export default PrivateRoute(Details)
