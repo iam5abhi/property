@@ -4,9 +4,10 @@ import Link from 'next/link'
 import { auth, logInWithEmailAndPassword } from "../../components/firebase/index";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-const Index = () => {
+const Login = () => {
   const [formData,setFormData]=useState({ email: '', password: '' })
   const [user, loading] = useAuthState(auth);
+  const router = useRouter()
 
   const FromHandler=(event)=>{
     setFormData((pre)=>({
@@ -21,7 +22,6 @@ const Index = () => {
   };
 
   useEffect(() => {
-    const router = useRouter()
     if (loading) {
       // maybe trigger a loading screen
       return;
@@ -68,5 +68,5 @@ const Index = () => {
   )
 }
 
-export default Index
+export default Login;
 
