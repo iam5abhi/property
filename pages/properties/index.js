@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-const index = () => {
+const Property = () => {
     const router = useRouter()
 
     return (
@@ -54,4 +54,4 @@ const index = () => {
     )
 }
 
-export default index;
+export default Property;

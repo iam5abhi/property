@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import QueryFrom from '../../components/QueryForm/QueryFrom';
 
-const viewPropert = () => {
+const ViewPropert = () => {
     const router = useRouter()
     const requirement = router.query
     const [contact, setContact] = useState()
@@ -167,4 +167,4 @@ const viewPropert = () => {
     )
 }
 
-export default viewPropert
+export default ViewPropert
