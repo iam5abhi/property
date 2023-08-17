@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.9",
-    "@babel/eslint-plugin": "^7.22.5"
+    "@babel/eslint-plugin": "^7.22.5",
+    "@next/eslint-plugin-next": "^13.4.17"
   }
 }
