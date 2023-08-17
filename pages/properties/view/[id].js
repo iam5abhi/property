@@ -82,7 +82,7 @@ const SinglePropert = () => {
                          <a href="#" className="text-3xl text-gray-800 font-bold  pb-4">Amenties</a>
                          <div className='grid grid-cols-2 md:grid-cols-3 '>
                              {contact.Amenities.map((data,id)=>{
-                                return <a href="#" className="pb-6 text-center">{
+                                return <a href="#" key={id} className="pb-6 text-center">{
                                 data.includes("Swimming Pool")?<i className="fa-solid fa-person-swimming fa-2xl text-blue-400"></i>
                                 :data.includes("Internal Street Lights")?<i className="fa-solid fa-traffic-light fa-2xl text-blue-400"></i>
                                 :data.includes("24x7 Security")?<i className="fa-solid fa-person-rifle fa-2xl text-blue-400"></i>

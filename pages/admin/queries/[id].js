@@ -122,7 +122,7 @@ const UpdateContact = () => {
                     <select id="AvailableFrom" disabled value={formData.ProjectID} name="ProjectID" onChange={onChangeHandler}
                       className="cursor-not-allowed bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required >
                       <option value="">Choose Project</option>
-                      {projects.map((data)=><option value={data.id}>{data.ProjectName}({data.requirement})</option>)}
+                      {projects.map((data)=><option key={data.id} value={data.id}>{data.ProjectName}({data.requirement})</option>)}
                       
                     </select>
                   </div>

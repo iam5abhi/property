@@ -122,7 +122,7 @@ function Broadcast({setOpen,open,queries}) {
                                 required
                               >
                                 <option value="">Choose</option>
-                                {urls.map(data=><option value={data.secondUrl}>{data.name}</option>)}
+                                {urls.map(data=><option key={data.secondUrl} value={data.secondUrl}>{data.name}</option>)}
                               </select>
                             </div>
                             <div className='grid justify-items-center mt-5'>
