@@ -18,7 +18,8 @@ const UpdateContact = () => {
     expactedBudget:'',
     budget:'',
     status:'',
-    remarks:''
+    remarks:'',
+    type:''
   });
 
   console.log(date,"date")
@@ -65,7 +66,8 @@ const UpdateContact = () => {
           expactedBudget:data.expactedBudget,
           budget:data.budget,
           status:data.status,
-          remarks:data.remarks
+          remarks:data.remarks,
+          type:data.type
         });
         const date = getDate(data.xata.createdAt)
         const Time = getTime(data.xata.createdAt)

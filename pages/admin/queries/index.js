@@ -3,6 +3,7 @@ import React,{useState,useEffect} from 'react'
 import PrivateRoute from '../../../PrivateRoute/PrivateRoute';
 import AddQuery from '../../../components/Admin/AddQuery/AddQuery';
 import Broadcast from '../../../components/Admin/AddQuery/Broadcast';
+import { getDate, getTime } from '../../../features/getDate';
 
 const Queries = () => {
     const router = useRouter();
@@ -89,13 +90,13 @@ const Queries = () => {
                                         {data.phoneNumber}
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                        {data.ProjectName}({data.requirement})({data.budget})
+                                        {data.ProjectName}({data.requirement})({data.budget})({data.type})
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
                                         {data.expactedBudget}
                                     </td>
                                     <td className="text-center px-5 py-5 bg-white text-sm">
-                                        {data.xata.createdAt}
+                                        <div>{getDate(data.xata.createdAt)}</div>{getTime(data.xata.createdAt)}
                                     </td>   
                                     <td className="text-center px-5 py-5 bg-white text-sm">                                                                                                                                            
                                         <span className={`mr-3 cursor-pointer relative inline-block px-3 py-1 font-semibold ${data.status=="newlead"?"text-green-900":data.status=="inprogress"?"text-yellow-900":data.status=="converted"?"text-purple-900":data.status=="onhold"?"text-blue-900":"text-red-900"} leading-tight`}>
