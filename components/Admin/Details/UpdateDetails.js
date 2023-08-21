@@ -6,7 +6,7 @@ import Head from 'next/head';
 
 function UpdateDetails({setOpen,open,getQueriesData,id}) {
   const cancelButtonRef = useRef(null)
-  const [formData,setFormData]=useState({logo:'',alternatePhoneNumber:'',email:'',phoneNumber:'',about:''})
+  const [formData,setFormData]=useState({logo:'',alternatePhoneNumber:'',email:'',phoneNumber:'',about:'',address:'',location:""})
 
   const handleChange =(event)=>{
     setFormData((pre)=>({
@@ -130,6 +130,14 @@ function UpdateDetails({setOpen,open,getQueriesData,id}) {
                               <div className='mt-1' >
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alternate Phone Number</label>
                                 <input type="text" name='alternatePhoneNumber' value={formData.alternatePhoneNumber} onChange={handleChange} id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Number' />
+                              </div>
+                              <div className='mt-1'>
+                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location <span class="text-red-600">*</span></label>
+                                <input type="text" name='location' value={formData.location} onChange={handleChange} id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Location' required/>
+                              </div>
+                              <div className='mt-1' >
+                                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                                <input type="text" name='address' value={formData.address} onChange={handleChange} id="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Enter Address' />
                               </div>
                               <div className='mt-1'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About Us<span class="text-red-600">*</span></label>

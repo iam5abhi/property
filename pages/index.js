@@ -21,7 +21,8 @@ const Reset = () => {
 
     return (
         <>
-        <div>
+        {data.map((data)=>{
+          return <div key={data.id}>
             <div className="grid mb-8 border border-gray-200 rounded-lg shadow-sm md:mb-12 md:grid-cols-2 bg-white">
                 <figure className="flex flex-col items-center justify-center p-4  border-b border-gray-200 rounded-tr-lg ">
                     <blockquote className="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8">
@@ -29,15 +30,15 @@ const Reset = () => {
                             Welcome
                         </h2>
                         <p className="my-4 text-[#000]">
-                            We are the third generation entrepreneurs with over two decades of family experience as an investor in the real estate , aiming to disrupt the unethical business practices followed by the property agents while selling or purchasing some property due to lack of right information on the part of ultimate seller or buyer which leads to the manipulated pricing resulting in the end buyer or/and seller taking the hit .
+                            {data.about}
                         </p>
                     </blockquote>
-                    <div className="grid gap-2 md:gap-x-10 grid-cols-2 md:grid-cols-2">
+                    <div className="grid gap-x-2 md:gap-x-10 grid-cols-2 md:grid-cols-2">
                         <div className="grid1">
                             <div className="md:px-14 rounded-full bg-[#F8AF0B] shadow-md">
-                                <div className="md:p-5 p-3">
+                                <div className="md:p-5 py-3 px-20 flex justify-center">
                                     <a>
-                                        <h5 onClick={() => router.push('/properties/buy')} className="text-center text-white text-xl md:text-3xl font-semibold tracking-tight uppercase">Buy</h5>
+                                        <h5 onClick={() => router.push('/properties/buy')} className="text-white text-xl md:text-3xl font-semibold tracking-tight uppercase">Buy</h5>
                                     </a>
                                 </div>
                             </div>
@@ -62,8 +63,7 @@ const Reset = () => {
                     </figcaption>
                 </figure>
             </div>
-            {data.map((data)=>{
-                return <div key={data.id} className="grid grid-cols-6 md:grid-cols-8 sm:grid-cols-2 gap-8 px-4 ">
+            <div className="grid grid-cols-6 md:grid-cols-8 sm:grid-cols-2 gap-8 px-4 ">
                 <div className="col-span-1" />
                 <article className="col-span-6 my-4 px-2">
                     <div className="w-full bg-white border border-gray-200 rounded-lg shadow ">
@@ -78,7 +78,7 @@ const Reset = () => {
                                     <div scope="row" className=" font-medium text-gray-900 whitespace-nowrap float-left ">
                                         <i className="fa-solid fa-map-pin" />
                                     </div>
-                                    <div className="ml-10 ">2511,  Sector 82 A, IT City Road, Mohali (Opp. Amity University)</div>
+                                    <div className="ml-10 ">{data.location},{data.address}</div>
                                 </div>
                                 <div className="bg-white  px-2">
                                     <div scope="row" className=" font-medium text-gray-900 whitespace-nowrap float-left">
@@ -98,7 +98,10 @@ const Reset = () => {
                     </div>
                 </article>
             </div>
-            })}
+        </div>
+        })}
+        <div className='w-full mt-10'>
+           <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d2965.0824050173574!2d-93.63905729999999!3d41.998507000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sWebFilings%2C+University+Boulevard%2C+Ames%2C+IA!5e0!3m2!1sen!2sus!4v1390839289319" width="100%" height="400" frameborder="0" className='border-0'></iframe>
         </div>
         </>
     )

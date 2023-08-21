@@ -152,11 +152,11 @@ const UpdateContact = () => {
                     <select id="AvailableFrom" value={formData.status} name="status" onChange={onChangeHandler}
                       className="bg-gray-50 border border-gray-300 text-gray-900 md:text-sm text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" >
                       <option value="">Choose Status</option>
-                      <option value="newlead">New Lead</option>
-                      <option value="inprogress">InProgress</option>
-                      <option value="converted">Converted</option>
-                      <option value="rejected">Rejected</option>
-                      <option value="onhold">OnHold</option>
+                      <option className="bg-green-300" value="newlead">New Lead</option>
+                      <option className="bg-yellow-300" value="inprogress">InProgress</option>
+                      <option className="bg-purple-300" value="converted">Converted</option>
+                      <option className="bg-red-300" value="rejected">Rejected</option>
+                      <option className="bg-blue-300" value="onhold">OnHold</option>
                     </select>
                   </div>
                   <div className="mb-4">
